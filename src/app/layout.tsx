@@ -6,7 +6,15 @@ import classNames from "classnames";
 import { Footer, Header, RouteGuard } from "@/components";
 import { baseURL, effects, style, font, home } from "@/app/resources";
 
-import { Background, Column, Flex, ThemeProvider, ToastProvider } from "@/once-ui/components";
+import {
+  Background,
+  Column,
+  Flex,
+  Mask,
+  MatrixFx,
+  ThemeProvider,
+  ToastProvider,
+} from "@/once-ui/components";
 import { opacity, SpacingToken } from "@/once-ui/types";
 import { Meta } from "@/once-ui/modules";
 
@@ -70,14 +78,20 @@ export default async function RootLayout({ children }: RootLayoutProps) {
       </head>
       <ThemeProvider>
         <ToastProvider>
-          <Column style={{ minHeight: "100vh" }} as="body" fillWidth margin="0" padding="0">
+          <Column
+            style={{ minHeight: "100vh" }}
+            as="body"
+            fillWidth
+            margin="0"
+            padding="0"
+          >
             <Background
               position="fixed"
               mask={{
                 x: effects.mask.x,
                 y: effects.mask.y,
                 radius: effects.mask.radius,
-                cursor: effects.mask.cursor
+                cursor: effects.mask.cursor,
               }}
               gradient={{
                 display: effects.gradient.display,
@@ -112,6 +126,33 @@ export default async function RootLayout({ children }: RootLayoutProps) {
                 color: effects.lines.color,
               }}
             />
+            <Mask
+              position="fixed"
+              zIndex={0}
+              fill
+              x={50}
+              y={50}
+              radius={100}
+              style={{ pointerEvents: "none" }}
+            >
+              <MatrixFx
+                flicker
+                fps={30}
+                data-solid="color"
+                style={{
+                  maskImage:
+                    "linear-gradient(to bottom, black 50%, transparent 100%)",
+                }}
+                colors={["brand-solid-strong", "accent-solid-strong"]}
+                size={2}
+                spacing={4}
+                bulge={{
+                  duration: 2,
+                  intensity: 10,
+                  repeat: false,
+                }}
+              />
+            </Mask>
             <Flex fillWidth minHeight="16" hide="s"></Flex>
             <Header />
             <Flex

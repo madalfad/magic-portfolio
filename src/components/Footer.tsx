@@ -28,27 +28,24 @@ export const Footer = () => {
           <Text onBackground="neutral-weak">
             {/* Usage of this template requires attribution. Please don't remove the link to Once UI. */}
             / Build your portfolio with{" "}
-            <SmartLink
-              href="https://once-ui.com/templates/magic-portfolio"
-            >
+            <SmartLink href="https://once-ui.com/templates/magic-portfolio">
               Once UI
             </SmartLink>
           </Text>
         </Text>
         <Flex gap="16">
-          {social.map(
-            (item) =>
-              item.link && (
-                <IconButton
-                  key={item.name}
-                  href={item.link}
-                  icon={item.icon}
-                  tooltip={item.name}
-                  size="s"
-                  variant="ghost"
-                />
-              ),
-          )}
+          {social
+            .filter((item) => item.link)
+            .map((item, index) => (
+              <IconButton
+                key={`${item.name}-${index}`}
+                href={item.link}
+                icon={item.icon}
+                tooltip={item.name}
+                size="s"
+                variant="ghost"
+              />
+            ))}
         </Flex>
       </Flex>
       <Flex height="80" show="s"></Flex>

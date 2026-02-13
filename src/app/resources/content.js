@@ -18,8 +18,8 @@ const newsletter = {
   title: <>Subscribe to {person.firstName}'s Newsletter</>,
   description: (
     <>
-      I occasionally write about design, technology, and share thoughts on the intersection of
-      creativity and engineering.
+      I occasionally write about design, technology, and share thoughts on the
+      intersection of creativity and engineering.
     </>
   ),
 };
@@ -58,12 +58,17 @@ const home = {
   headline: <>Building bridges between medicine and technology</>,
   featured: {
     display: true,
-    title: <>Recent project: <strong className="ml-4">Pomodo.Study</strong></>,
+    title: (
+      <>
+        Recent project: <strong className="ml-4">Pomodo.Study</strong>
+      </>
+    ),
     href: "https://pomodo.study",
   },
   subline: (
     <>
-      I'm {person.firstName}, a third-year medical student at AUC School of Medicine, where I am training to be a physician.
+      I'm {person.firstName}, a third-year medical student at AUC School of
+      Medicine, where I am training to be a physician.
       <br /> After hours, I build my own projects.
     </>
   ),
@@ -90,14 +95,15 @@ const about = {
     title: "Introduction",
     description: (
       <>
-        {person.firstName} is an Indiana-based medical student with a passion for transforming complex challenges
-        in medicine and technology into simple, elegant solutions. His work spans adacemic research, clinical care, 
-        and the convergence of medicine and technology.
+        {person.firstName} is an Indiana-based medical student with a passion
+        for transforming complex challenges in medicine and technology into
+        simple, elegant solutions. His work spans adacemic research, clinical
+        care, and the convergence of medicine and technology.
       </>
     ),
   },
   work: {
-    display: true, // set to false to hide this section
+    display: false, // set to false to hide this section
     title: "Work",
     experiences: [
       {
@@ -106,12 +112,12 @@ const about = {
         role: "Founder, Lead Developer",
         achievements: [
           <>
-            Developed Pearlium Health, an AI-powered modular clinical platform for providers to streamline 
-            patient care workflows.
+            Developed Pearlium Health, an AI-powered modular clinical platform
+            for providers to streamline patient care workflows.
           </>,
           <>
-            Developed PearlLM, an AI-powered clinical decision support system with industry-leading performance
-            and accuracy in clinical tasks.
+            Developed PearlLM, an AI-powered clinical decision support system
+            with industry-leading performance and accuracy in clinical tasks.
           </>,
         ],
         images: [
@@ -147,178 +153,68 @@ const about = {
       },
       {
         name: "Indiana University Bloomington",
-        description: <>B.S. in Neuroscience, 2021<br />B.A. in Chemistry, 2021</>,
+        description: (
+          <>
+            B.S. in Neuroscience, 2021
+            <br />
+            B.A. in Chemistry, 2021
+          </>
+        ),
         image: "/images/resources/IUSeal.png",
       },
     ],
   },
   technical: {
     display: true, // set to false to hide this section
-    title: "Technical skills",
-    skills: [
-      {
-        title: "Python",
-        description: <>Certified Associate Python Programmer, OpenEDG Python Institute (2025)</>,
-        // optional: leave the array empty if you don't want to display images
-        images: [
-          {
-            src: "/images/projects/project-01/cover-02.jpg",
-            alt: "Project image",
-            width: 16,
-            height: 9,
-          },
-          {
-            src: "/images/projects/project-01/cover-03.jpg",
-            alt: "Project image",
-            width: 16,
-            height: 9,
-          },
-        ],
-      },
-      {
-        title: "Next.js",
-        description: <>Building next gen apps with Next.js + Once UI + Supabase.</>,
-        // optional: leave the array empty if you don't want to display images
-        images: [
-          {
-            src: "/images/projects/project-01/cover-04.jpg",
-            alt: "Project image",
-            width: 16,
-            height: 9,
-          },
-        ],
-      },
+    title: "Skills",
+    certifications: [
+      "OpenEDG PCAP – Certified Associate Python Programmer",
+      "CITI Program Biomedical Researcher",
+      "CITI Program Social/Behavioral Researcher",
+      "American Red Cross Basic Life Support (BLS) for Healthcare Providers",
+      "Mentor Collective Trained Mentor",
+    ],
+    technical: [
+      "Python",
+      "Data Science",
+      "Artificial Intelligence",
+      "Electronic Medical Records",
+      "Microsoft Office Suite",
+      "Google Suite",
+      "Adobe Suite",
+      "JetBrains Suite",
+      "LLM Prompting",
+      "Retinal Imaging",
+      "Github",
+      "EndNote",
+      "LaTeX",
+    ],
+    practical: [
+      "Academic Writing",
+      "Mentoring",
+      "Leadership",
+      "Application Consulting",
+      "Biostatistical Analysis",
+      "Experimental Design",
+      "Trumpet Performance",
     ],
   },
   research: {
     display: true, // set to false to hide this section
     title: "Research",
-    projects: [
-      {
-        title: "Case Report: Management of Cerebral Arterial Gas Embolism via Transfer to an Outpatient Hyperbaric Chamber",
-        description: "Frontiers in Medicine",
-        link: "http://dx.doi.org/10.3389/fmed.2025.1533459",
-        image: "https://i.ibb.co/wNN2xsQD/frontiers-removebg-preview.png",
-      },
-      {
-        title: "Progressive Choreiform Movements in a Child: Early Recognition and Management of Sydenham Chorea",
-        description: "Tremor and Other Hyperkinetic Movements",
-        link: "http://dx.doi.org/10.5334/tohm.988", 
-        image: "https://storage.googleapis.com/jnl-up-j-tohm-public/journals/1/pageHeaderLogoImage_en_US.png?t=1743616380000",
-      },
-      {
-        title: "Markers of Futile Resuscitation in Traumatic Hemorrhage: A Review of the Evidence and a Proposal for Futility Time-Outs during Massive Transfusion",
-        description: "Journal of Clinical Medicine",
-        link: "http://dx.doi.org/10.3390/jcm13164684",
-        image: "https://pub.mdpi-res.com/img/journals/jcm-logo.png?6922832c4f546280",
-      },
-      {
-        title: "Traumatic Brain Injury as an Independent Predictor of Futility in the Early Resuscitation of Patients in Hemorrhagic Shock",
-        description: "Journal of Clinical Medicine",
-        link: "http://dx.doi.org/10.3390/jcm13133915",
-        image: "https://pub.mdpi-res.com/img/journals/jcm-logo.png?6922832c4f546280",
-      },
-      {
-        title: "Recurring Eczema Herpeticum Complicated by Herpetic Meningitis and Staphylococcal Bacteremia",
-        description: "Journal of Emergency Medicine: Reports",
-        link: "http://dx.doi.org/10.1016/j.jemrpt.2024.100085",
-        image: "https://ars.els-cdn.com/content/image/1-s2.0-S2773232024X00024-cov200h.gif",
-      },
-      {
-        title: "Acute Management of Stroke in Patients with Polycythemia Vera",
-        description: "ACTA Scientific Neurology",
-        link: "http://dx.doi.org/10.31080/ASNE.2023.06.0684",
-        image: "https://i.ibb.co/3D0c08N/image-removebg-preview.png",
-      },
-      {
-        title: "Iatrogenic Air Embolism: Pathoanatomy, Thromboinflammation, Endotheliopathy, and Therapies",
-        description: "Frontiers in Immunology",
-        link: "http://dx.doi.org/10.3389/fimmu.2023.1230049",
-        image: "https://i.ibb.co/wNN2xsQD/frontiers-removebg-preview.png",
-      },
-      {
-        title: "Type B Lactic Acidosis in a Patient with Mantle Cell Lymphoma",
-        description: "Case Reports in Critical Care",
-        link: "https://doi.org/10.1155/2023/7021123",
-        image: "https://i.ibb.co/DHLTYP8K/default-cover.jpg",
-      },
-      {
-        title: "SHock-INduced Endotheliopathy (SHINE): A mechanistic justification for viscoelastography-guided resuscitation of traumatic and non-traumatic shock",
-        description: "Frontiers in Physiology",
-        link: "https://doi.org/10.3389/fphys.2023.1094845",
-        image: "https://i.ibb.co/wNN2xsQD/frontiers-removebg-preview.png",
-      },
-      {
-        title: "The Choice between Plasma-Based Common Coagulation Tests and Cell-Based Viscoelastic Tests in Monitoring Hemostatic Competence: Not an either-or Proposition",
-        description: "Seminars in Thrombosis and Hemostasis",
-        link: "https://doi.org/10.1055/s-0042-1756302",
-        image: "https://pbs.twimg.com/profile_banners/1304487162021326853/1599849235/1500x500",
-      },
-      {
-        title: "Viscoelastic Hemostatic Assays: A Primer on Legacy and New Generation Devices",
-        description: "Journal of Clinical Medicine",
-        link: "https://doi.org/10.3390/jcm11030860",
-        image: "https://pub.mdpi-res.com/img/journals/jcm-logo.png?6922832c4f546280",
-      },
-      {
-        title: "Viscoelastic Testing and Coagulopathy of Traumatic Brain Injury",
-        description: "Journal of Clinical Medicine",
-        link: "https://doi.org/10.3390/jcm10215039",
-        image: "https://pub.mdpi-res.com/img/journals/jcm-logo.png?6922832c4f546280",
-      },
-      {
-        title: "Preventing Thrombohemorrhagic Complications of Heparinized COVID-19 Patients Using Adjunctive Thromboelastography: A Retrospective Study",
-        description: "Journal of Clinical Medicine",
-        link: "https://doi.org/10.3390/jcm10143097",
-        image: "https://pub.mdpi-res.com/img/journals/jcm-logo.png?6922832c4f546280",
-      },
-      {
-        title: "Value of Viscoelastic Testing in Detecting Fibrinolysis and Coagulopathy in Malignancy-Associated Coagulopathy and Orthopaedic Trauma",
-        description: "ANZ Journal of Surgery",
-        link: "https://doi.org/10.1111/ans.15675",
-        image: "https://i.ibb.co/TC8HrcB/14452197.webp",
-      },
-      {
-        title: "Septic Superficial Femoral Vein Thrombophlebitis Causing Pulmonary Emboli and Respiratory Failure: Case Report and Review of the Literature",
-        description: "International Journal of Clinical Medicine",
-        link: "https://doi.org/10.4236/ijcm.2019.108034",
-        image: "https://i.ibb.co/9HxGDXWY/image-removebg-preview-1.png",
-      },
-      {
-        title: "Psychosocial Barriers to Equitable Food Access: A Qualitative Analysis of Food Pantries in Northern Indiana",
-        description: "Indiana University School of Medicine Medical Education Day",
-        link: "",
-        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Indiana_University_School_of_Medicine_logo.png/1200px-Indiana_University_School_of_Medicine_logo.png?20230207052929",
-      },
-      {
-        title: "Trends in Robotic Spine Surgery Over Time: An Analysis of HCUP NIS Data from 2010 to 2021",
-        description: "Congress of Neurological Surgeons (CNS) Annual Meeting",
-        link: "",
-        image: "https://dm27uw8wcv0cc.cloudfront.net/Assets/image/webp/50553a69-7ae8-4687-979a-021bbbeacc09.webp",
-      },
-      {
-        title: "A 20-year-old Male with Photophobia and a Rapidly Worsening Vesicular Rash",
-        description: "Indiana University School of Medicine South Bend Grand Rounds",
-        link: "",
-        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Indiana_University_School_of_Medicine_logo.png/1200px-Indiana_University_School_of_Medicine_logo.png?20230207052929",
-      },
-      {
-        title: "Intravascular Lithotripsy (IVL)",
-        description: "Beacon Memorial Hospital Grand Rounds",
-        link: "",
-        image: "https://i.ibb.co/Z1Ttgv49/1602303125644-removebg-preview.png",
-      },
-    ]
-  }
+    // Projects are now fetched from Google Sheets at build time.
+    // See src/app/utils/research.ts for the fetch utility.
+    projects: [],
+  },
 };
 
-const blog = {
-  path: "/blog",
-  label: "Blog",
-  title: "Writing about design and tech...",
-  description: `Read what ${person.name} has been up to recently`,
-  // Create new blog posts by adding a new .mdx file to app/blog/posts
-  // All posts will be listed on the /blog route
+const research = {
+  path: "/research",
+  label: "Research",
+  title: "Research publications and writing",
+  description: `Explore ${person.name}'s research publications, abstracts, and academic writing`,
+  // Create new research posts by adding a new .mdx file to app/research/posts
+  // All posts will be listed on the /research route
 };
 
 const work = {
@@ -326,7 +222,7 @@ const work = {
   label: "Work",
   title: `Projects – ${person.name}`,
   description: `Design and dev projects by ${person.name}`,
-  // Create new project pages by adding a new .mdx file to app/blog/posts
+  // Create new project pages by adding a new .mdx file to app/work/projects
   // All projects will be listed on the /home and /work routes
 };
 
@@ -381,4 +277,4 @@ const gallery = {
   ],
 };
 
-export { person, social, newsletter, home, about, blog, work, gallery };
+export { person, social, newsletter, home, about, research, work, gallery };

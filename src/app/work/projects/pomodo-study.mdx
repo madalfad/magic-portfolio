@@ -1,0 +1,49 @@
+---
+title: "pomodo.study"
+publishedAt: "2024-04-01"
+summary: "A free, distraction-free set of in-browser study tools including a pomodoro timer, ambient sound mixer, and a to-do list for focused productivity."
+images:
+  - "/images/projects/project-01/cover-02.jpg"
+  - "/images/projects/project-01/image-03.jpg"
+team:
+  - name: "Mahmoud Al-Fadhl"
+    role: "Developer"
+    avatar: "/images/avatar.jpg"
+    linkedIn: "https://www.linkedin.com/in/madalfad/"
+tags:
+  - "Open Source"
+link: "https://pomodo.study"
+---
+
+## Overview
+
+pomodo.study is a free, in-browser study hub designed to help users stay focused and productive. It combines a customizable Pomodoro timer, an ambient sound mixer powered by YouTube embeds, a simple to-do list, and an interactive 3D globe showing a worldwide study community — all in one distraction-free interface. The app persists user settings locally so sessions pick up right where they left off.
+
+## Key Features
+
+- **Pomodoro Timer**: A fully customizable timer with configurable focus, short break, and long break durations. It features a circular progress indicator with color-coded states, auto-transitions between phases, audio alerts for each transition, and cycle tracking before long breaks.
+- **Sound Mixer**: An ambient audio system with two independent YouTube embed channels — one for music and one for ambience. Each channel has separate volume controls for focus and break modes, and volumes automatically adjust when the Pomodoro timer switches phases.
+- **Study Tasks**: A lightweight to-do list for tracking session goals. Tasks can be added, checked off (with a satisfying completion sound), deleted, or bulk-cleared. All tasks persist across sessions via localStorage.
+- **Community Globe**: An interactive 3D globe built with Three.js that visualizes study activity around the world. It displays the user's own location via IP geolocation alongside major study regions, complete with pulsing ring animations and auto-rotation.
+- **Dark Mode**: A dark-first UI with a toggle for theme switching, designed to reduce eye strain during long study sessions.
+- **Responsive Layout**: A mobile-first grid layout that intelligently reorganizes components between mobile and desktop viewports.
+
+## Technologies Used
+
+- **React & TypeScript**: For building a type-safe, component-driven front end.
+- **Vite**: For fast development builds and hot module replacement.
+- **Tailwind CSS & shadcn/ui**: For utility-first styling with accessible, pre-built Radix UI components.
+- **Three.js**: For rendering the interactive 3D globe visualization with orbit controls and animated markers.
+- **Framer Motion**: For smooth mount/unmount animations and transitions throughout the UI.
+- **Express.js**: For the backend server handling API routes and static file serving.
+- **Drizzle ORM & PostgreSQL**: For database schema management and user data persistence.
+- **YouTube IFrame API**: For embedding and programmatically controlling ambient audio streams.
+- **Web Audio API**: For playing timer alert sounds and task completion effects.
+
+## Challenges and Learnings
+
+A significant challenge was getting the YouTube IFrame API to reliably control volume in sync with Pomodoro state changes. This required a custom event-driven architecture using `CustomEvent` dispatches so that the timer and sound mixer components could communicate without tight coupling. Another challenge was accurately mapping latitude/longitude coordinates onto the Three.js globe texture — the SVG-based earth map required manual correction factors to align markers with their real-world positions. Persisting complex nested state (timer settings, video settings, tasks) across sessions using localStorage also demanded a robust custom `useLocalStorage` hook to handle serialization edge cases.
+
+## Outcome
+
+pomodo.study delivers a cohesive, all-in-one study experience directly in the browser with zero sign-up required. The Pomodoro timer seamlessly orchestrates focus and break phases while the sound mixer automatically adjusts the audio atmosphere to match. The app demonstrates full-stack development skills spanning real-time 3D visualization, third-party API integration, state management, and responsive UI design — all within a polished, user-friendly package.

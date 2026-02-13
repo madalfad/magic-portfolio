@@ -40,6 +40,8 @@ export * from "./LetterFx";
 export * from "./Line";
 export * from "./Logo";
 export * from "./LogoCloud";
+export * from "./Mask";
+export * from "./MatrixFx";
 export * from "./MegaMenu";
 export * from "./NavIcon";
 export * from "./NumberInput";

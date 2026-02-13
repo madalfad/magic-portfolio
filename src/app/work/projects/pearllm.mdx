@@ -1,0 +1,48 @@
+---
+title: "PearLLM"
+publishedAt: "2024-06-15"
+summary: "A suite of AI-powered tools for studying medicine, featuring RAG search over tens of thousands of articles, LLM-guided Anki flashcard generation, and USMLE-style question generation through a fine-tuned model."
+images:
+  - "/images/projects/project-01/cover-01.jpg"
+  - "/images/projects/project-01/cover-02.jpg"
+  - "/images/projects/project-01/cover-03.jpg"
+  - "/images/projects/project-01/cover-04.jpg"
+team:
+  - name: "Mahmoud Al-Fadhl"
+    role: "Developer"
+    avatar: "/images/avatar.jpg"
+    linkedIn: "https://www.linkedin.com/in/madalfad/"
+tags:
+  - "Closed Source"
+  - "Work in Progress"
+link: ""
+---
+
+## Overview
+
+PearLLM is a suite of AI-powered study tools purpose-built for medical students. It brings together retrieval-augmented generation (RAG) search across tens of thousands of biomedical articles, intelligent Anki flashcard generation guided by large language models, and USMLE-style question generation powered by a fine-tuned model — all in a single platform designed to accelerate learning and board exam preparation.
+
+## Key Features
+
+- **RAG-Powered Medical Search**: A retrieval-augmented generation pipeline that indexes tens of thousands of medical articles, enabling students to ask natural-language questions and receive grounded, citation-backed answers drawn directly from the source literature.
+- **LLM-Guided Anki Flashcard Generation**: An intelligent flashcard creation system that leverages LLMs to distill complex medical topics into high-yield, spaced-repetition-ready Anki cards. Students can generate cards from specific articles, topics, or their own notes with minimal manual effort.
+- **USMLE-Style Question Generation**: A fine-tuned language model trained to produce realistic USMLE-style vignette questions complete with answer choices, correct answers, and detailed explanations — giving students an unlimited supply of practice material tailored to their study focus.
+- **Topic-Aware Context Retrieval**: The RAG system uses semantic embeddings to retrieve the most relevant passages across the article corpus, ensuring that generated answers, flashcards, and questions are grounded in accurate, up-to-date medical knowledge.
+- **Interactive Study Workflow**: A unified interface that lets students seamlessly move between searching for information, generating flashcards from what they find, and testing themselves with generated questions — creating a complete study loop.
+
+## Technologies Used
+
+- **Large Language Models**: For natural-language understanding, answer generation, flashcard synthesis, and question authoring.
+- **Fine-Tuning**: For training a specialized model on USMLE-style question formats to produce clinically accurate, board-exam-representative practice items.
+- **Retrieval-Augmented Generation (RAG)**: For grounding LLM outputs in a corpus of tens of thousands of indexed medical articles, reducing hallucination and improving factual accuracy.
+- **Vector Embeddings & Semantic Search**: For encoding and retrieving relevant passages from the article database based on meaning rather than keyword matching.
+- **Python**: For the backend pipeline handling document ingestion, embedding generation, retrieval logic, and model inference.
+- **Anki Integration**: For exporting generated flashcards in a format compatible with Anki's spaced repetition system.
+
+## Challenges and Learnings
+
+One of the core challenges was building a RAG pipeline that could scale to tens of thousands of articles while maintaining fast retrieval times and high relevance. This required careful chunking strategies, embedding model selection, and index optimization. Fine-tuning the USMLE question generation model demanded curating a high-quality training dataset of real board-style questions and iterating on prompt engineering to ensure generated vignettes were clinically plausible and educationally valuable. Balancing the tradeoff between generation creativity and factual grounding was an ongoing challenge — too much retrieval constraint produced dry, repetitive outputs, while too little led to hallucinated medical facts.
+
+## Outcome
+
+PearLLM provides medical students with an AI-powered study companion that transforms passive reading into active learning. The RAG search gives instant, evidence-backed answers to clinical questions. The flashcard generator eliminates hours of manual card creation. The USMLE question engine delivers an effectively unlimited bank of practice questions tailored to any topic. Together, these tools demonstrate applied expertise in LLM fine-tuning, retrieval-augmented generation, and building practical AI systems for a high-stakes domain where accuracy is paramount.

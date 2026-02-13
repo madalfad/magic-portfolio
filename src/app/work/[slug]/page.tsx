@@ -1,7 +1,16 @@
 import { notFound } from "next/navigation";
 import { CustomMDX } from "@/components/mdx";
 import { getPosts } from "@/app/utils/utils";
-import { AvatarGroup, Button, Column, Flex, Heading, SmartImage, Text } from "@/once-ui/components";
+import {
+  AvatarGroup,
+  Button,
+  Column,
+  Flex,
+  Heading,
+  SmartImage,
+  Tag,
+  Text,
+} from "@/once-ui/components";
 import { baseURL } from "@/app/resources";
 import { about, person, work } from "@/app/resources/content";
 import { formatDate } from "@/app/utils/formatDate";
@@ -22,9 +31,11 @@ export async function generateMetadata({
   params: Promise<{ slug: string | string[] }>;
 }): Promise<Metadata> {
   const routeParams = await params;
-  const slugPath = Array.isArray(routeParams.slug) ? routeParams.slug.join('/') : routeParams.slug || '';
+  const slugPath = Array.isArray(routeParams.slug)
+    ? routeParams.slug.join("/")
+    : routeParams.slug || "";
 
-  const posts = getPosts(["src", "app", "work", "projects"])
+  const posts = getPosts(["src", "app", "work", "projects"]);
   let post = posts.find((post) => post.slug === slugPath);
 
   if (!post) return {};
@@ -33,18 +44,26 @@ export async function generateMetadata({
     title: post.metadata.title,
     description: post.metadata.summary,
     baseURL: baseURL,
-    image: post.metadata.image ? `${baseURL}${post.metadata.image}` : `${baseURL}/og?title=${post.metadata.title}`,
+    image: post.metadata.image
+      ? `${baseURL}${post.metadata.image}`
+      : `${baseURL}/og?title=${post.metadata.title}`,
     path: `${work.path}/${post.slug}`,
   });
 }
 
 export default async function Project({
-  params
-}: { params: Promise<{ slug: string | string[] }> }) {
+  params,
+}: {
+  params: Promise<{ slug: string | string[] }>;
+}) {
   const routeParams = await params;
-  const slugPath = Array.isArray(routeParams.slug) ? routeParams.slug.join('/') : routeParams.slug || '';
+  const slugPath = Array.isArray(routeParams.slug)
+    ? routeParams.slug.join("/")
+    : routeParams.slug || "";
 
-  let post = getPosts(["src", "app", "work", "projects"]).find((post) => post.slug === slugPath);
+  let post = getPosts(["src", "app", "work", "projects"]).find(
+    (post) => post.slug === slugPath,
+  );
 
   if (!post) {
     notFound();
@@ -73,10 +92,36 @@ export default async function Project({
         }}
       />
       <Column maxWidth="xs" gap="16">
-        <Button data-border="rounded" href="/work" variant="tertiary" weight="default" size="s" prefixIcon="chevronLeft">
+        <Button
+          data-border="rounded"
+          href="/work"
+          variant="tertiary"
+          weight="default"
+          size="s"
+          prefixIcon="chevronLeft"
+        >
           Projects
         </Button>
         <Heading variant="display-strong-s">{post.metadata.title}</Heading>
+        {post.metadata.tags && post.metadata.tags.length > 0 && (
+          <Flex gap="8" wrap>
+            {post.metadata.tags.map((tag: string) => {
+              const variantMap: Record<
+                string,
+                "success" | "neutral" | "warning" | "danger" | "info" | "accent"
+              > = {
+                "open source": "success",
+                "closed source": "neutral",
+                "work in progress": "warning",
+                archived: "danger",
+                beta: "info",
+                new: "accent",
+              };
+              const variant = variantMap[tag.toLowerCase()] || "neutral";
+              return <Tag key={tag} variant={variant} size="s" label={tag} />;
+            })}
+          </Flex>
+        )}
       </Column>
       {post.metadata.images.length > 0 && (
         <SmartImage
@@ -89,7 +134,9 @@ export default async function Project({
       )}
       <Column style={{ margin: "auto" }} as="article" maxWidth="xs">
         <Flex gap="12" marginBottom="24" vertical="center">
-          {post.metadata.team && <AvatarGroup reverse avatars={avatars} size="m" />}
+          {post.metadata.team && (
+            <AvatarGroup reverse avatars={avatars} size="m" />
+          )}
           <Text variant="body-default-s" onBackground="neutral-weak">
             {post.metadata.publishedAt && formatDate(post.metadata.publishedAt)}
           </Text>
