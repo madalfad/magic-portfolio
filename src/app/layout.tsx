@@ -1,14 +1,14 @@
 import "@once-ui-system/core/css/styles.css";
 import "@once-ui-system/core/css/tokens.css";
+import "@/resources/custom.css";
 
 import classNames from "classnames";
 
 import { Footer, Header, RouteGuard, Providers } from "@/components";
-import { baseURL, effects, home } from "@/resources";
+import { baseURL, effects, fonts, style, dataStyle, home } from "@/resources";
 
 import { Background, Column, Flex, Mask, MatrixFx } from "@/once-ui/components";
-import { opacity, SpacingToken } from "@once-ui-system/core";
-import { Meta } from "@once-ui-system/core";
+import { opacity, SpacingToken, RevealFx, Meta } from "@once-ui-system/core";
 
 export async function generateMetadata() {
   return Meta.generate({
@@ -20,28 +20,76 @@ export async function generateMetadata() {
   });
 }
 
-interface RootLayoutProps {
+export default async function RootLayout({
+  children,
+}: Readonly<{
   children: React.ReactNode;
-}
-
-export default async function RootLayout({ children }: RootLayoutProps) {
+}>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <Flex
+      suppressHydrationWarning
+      as="html"
+      lang="en"
+      fillWidth
+      className={classNames(
+        fonts.heading.variable,
+        fonts.body.variable,
+        fonts.label.variable,
+        fonts.code.variable,
+      )}
+    >
       <head>
         <script
+          id="theme-init"
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
                 try {
-                  const theme = localStorage.getItem('theme') || 'system';
                   const root = document.documentElement;
-                  if (theme === 'system') {
-                    const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                    root.setAttribute('data-theme', isDark ? 'dark' : 'light');
-                  } else {
-                    root.setAttribute('data-theme', theme);
-                  }
+                  const defaultTheme = 'system';
+
+                  // Set defaults from config
+                  const config = ${JSON.stringify({
+                    brand: style.brand,
+                    accent: style.accent,
+                    neutral: style.neutral,
+                    solid: style.solid,
+                    "solid-style": style.solidStyle,
+                    border: style.border,
+                    surface: style.surface,
+                    transition: style.transition,
+                    scaling: style.scaling,
+                    "viz-style": dataStyle.variant,
+                  })};
+
+                  // Apply default values
+                  Object.entries(config).forEach(([key, value]) => {
+                    root.setAttribute('data-' + key, value);
+                  });
+
+                  // Resolve theme
+                  const resolveTheme = (themeValue) => {
+                    if (!themeValue || themeValue === 'system') {
+                      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                    }
+                    return themeValue;
+                  };
+
+                  // Apply saved theme
+                  const savedTheme = localStorage.getItem('data-theme');
+                  const resolvedTheme = resolveTheme(savedTheme);
+                  root.setAttribute('data-theme', resolvedTheme);
+
+                  // Apply any saved style overrides
+                  const styleKeys = Object.keys(config);
+                  styleKeys.forEach(key => {
+                    const value = localStorage.getItem('data-' + key);
+                    if (value) {
+                      root.setAttribute('data-' + key, value);
+                    }
+                  });
                 } catch (e) {
+                  console.error('Failed to initialize theme:', e);
                   document.documentElement.setAttribute('data-theme', 'dark');
                 }
               })();
@@ -49,16 +97,18 @@ export default async function RootLayout({ children }: RootLayoutProps) {
           }}
         />
       </head>
-      <body>
-        <Providers>
-          <Column
-            style={{ minHeight: "100vh" }}
-            fillWidth
-            margin="0"
-            padding="0"
-          >
+      <Providers>
+        <Column
+          as="body"
+          background="page"
+          fillWidth
+          style={{ minHeight: "100vh" }}
+          margin="0"
+          padding="0"
+          horizontal="center"
+        >
+          <RevealFx fill position="absolute">
             <Background
-              position="fixed"
               mask={{
                 x: effects.mask.x,
                 y: effects.mask.y,
@@ -98,51 +148,44 @@ export default async function RootLayout({ children }: RootLayoutProps) {
                 color: effects.lines.color,
               }}
             />
-            <Mask
-              position="fixed"
-              zIndex={0}
-              fill
-              x={50}
-              y={50}
-              radius={100}
-              style={{ pointerEvents: "none" }}
-            >
-              <MatrixFx
-                flicker
-                fps={30}
-                data-solid="color"
-                style={{
-                  maskImage:
-                    "linear-gradient(to bottom, black 50%, transparent 100%)",
-                }}
-                colors={["brand-solid-strong", "accent-solid-strong"]}
-                size={2}
-                spacing={4}
-                bulge={{
-                  duration: 2,
-                  intensity: 10,
-                  repeat: false,
-                }}
-              />
-            </Mask>
-            <Flex fillWidth minHeight="16" s={{ hide: true }}></Flex>
-            <Header />
-            <Flex
-              zIndex={0}
-              fillWidth
-              paddingY="l"
-              paddingX="l"
-              horizontal="center"
-              flex={1}
-            >
-              <Flex horizontal="center" fillWidth minHeight="0">
-                <RouteGuard>{children}</RouteGuard>
-              </Flex>
+          </RevealFx>
+          <Mask
+            position="fixed"
+            zIndex={0}
+            fill
+            x={50}
+            y={50}
+            radius={100}
+            style={{ pointerEvents: "none" }}
+          >
+            <MatrixFx
+              flicker
+              fps={30}
+              data-solid="color"
+              style={{
+                maskImage:
+                  "linear-gradient(to bottom, black 50%, transparent 100%)",
+              }}
+              colors={["brand-solid-strong", "accent-solid-strong"]}
+              size={2}
+              spacing={4}
+              bulge={{
+                duration: 2,
+                intensity: 10,
+                repeat: false,
+              }}
+            />
+          </Mask>
+          <Flex fillWidth minHeight="16" s={{ hide: true }} />
+          <Header />
+          <Flex zIndex={0} fillWidth padding="l" horizontal="center" flex={1}>
+            <Flex horizontal="center" fillWidth minHeight="0">
+              <RouteGuard>{children}</RouteGuard>
             </Flex>
-            <Footer />
-          </Column>
-        </Providers>
-      </body>
-    </html>
+          </Flex>
+          <Footer />
+        </Column>
+      </Providers>
+    </Flex>
   );
 }
