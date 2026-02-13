@@ -18,11 +18,11 @@ import {
   HoloFx,
 } from "@/once-ui/components";
 import { Projects } from "@/components/work/Projects";
-import { baseURL, routes } from "@/app/resources";
-import { home, about, person, newsletter } from "@/app/resources/content";
+import { baseURL, routes } from "@/resources";
+import { home, about, person, newsletter } from "@/resources";
 import { Mailchimp } from "@/components";
-import { getResearchFromSheet } from "@/app/utils/research";
-import { Meta, Schema } from "@/once-ui/modules";
+import { getResearchFromSheet } from "@/utils/research";
+import { Meta, Schema } from "@once-ui-system/core";
 
 export async function generateMetadata() {
   return Meta.generate({
@@ -135,7 +135,7 @@ export default async function Home() {
       {/* Projects */}
       <RevealFx translateY="12" delay={0.55} fillWidth>
         <Column fillWidth gap="16">
-          <Flex fillWidth horizontal="space-between" vertical="center">
+          <Flex fillWidth horizontal="between" vertical="center">
             <Heading as="h2" variant="display-strong-xs">
               Projects
             </Heading>
@@ -158,7 +158,7 @@ export default async function Home() {
       {routes["/research"] && recentResearch.length > 0 && (
         <RevealFx translateY="16" delay={0.65} fillWidth>
           <Column fillWidth gap="16">
-            <Flex fillWidth horizontal="space-between" vertical="center">
+            <Flex fillWidth horizontal="between" vertical="center">
               <Heading as="h2" variant="display-strong-xs" wrap="balance">
                 Research
               </Heading>
@@ -237,7 +237,7 @@ export default async function Home() {
           marginRight="8"
           marginBottom="8"
         >
-          <Flex fillWidth horizontal="space-between" vertical="center">
+          <Flex fillWidth horizontal="between" vertical="center">
             <Heading as="h2" variant="display-strong-xs">
               Education
             </Heading>
@@ -253,8 +253,8 @@ export default async function Home() {
           <Grid
             fillWidth
             columns="4"
-            tabletColumns="2"
-            mobileColumns="1"
+            m={{ columns: "2" }}
+            s={{ columns: "1" }}
             gap="12"
           >
             {about.studies.institutions.map((institution, index) => (
@@ -323,7 +323,7 @@ export default async function Home() {
 
       {/* Optional spotlight cards for section navigation */}
       <RevealFx translateY={16} delay={0.75} fillWidth>
-        <Flex fillWidth gap="12" mobileDirection="column">
+        <Flex fillWidth gap="12" s={{ direction: "column" }}>
           <Card
             fillWidth
             radius="l"
@@ -352,7 +352,7 @@ export default async function Home() {
         </Flex>
       </RevealFx>
 
-      {newsletter.display && <Mailchimp newsletter={newsletter} />}
+      {newsletter.display && <Mailchimp />}
     </Column>
   );
 }

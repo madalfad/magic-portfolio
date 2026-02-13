@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
-import { Flex } from ".";
+import { Flex } from "@once-ui-system/core";
 
 interface BulgeConfig {
   type?: "ripple" | "wave";

@@ -1,4 +1,4 @@
-import { getPosts } from "@/app/utils/utils";
+import { getPosts } from "@/utils/utils";
 import { Grid } from "@/once-ui/components";
 import Post from "./Post";
 
@@ -36,7 +36,7 @@ export function Posts({
       {displayedBlogs.length > 0 && (
         <Grid
           columns={columns}
-          mobileColumns="1"
+          s={{ columns: "1" }}
           fillWidth
           marginBottom="40"
           gap="12"

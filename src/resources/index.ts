@@ -18,4 +18,5 @@ export {
   research,
   work,
   gallery,
-} from "@/app/resources/content";
+} from "./content";
+export { dataStyle, socialSharing } from "./once-ui.config";

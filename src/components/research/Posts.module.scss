@@ -1,0 +1,11 @@
+.hover {
+    &:hover {
+        background: var(--neutral-alpha-weak);
+    }
+}
+
+.image {
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    width: 100%;
+}

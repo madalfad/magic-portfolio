@@ -1,9 +1,9 @@
 import { Column, Heading } from "@/once-ui/components";
 import { Mailchimp } from "@/components";
 import { Posts } from "@/components/research/Posts";
-import { baseURL } from "@/app/resources";
-import { research, person, newsletter } from "@/app/resources/content";
-import { Meta, Schema } from "@/once-ui/modules";
+import { baseURL } from "@/resources";
+import { research, person, newsletter } from "@/resources";
+import { Meta, Schema } from "@once-ui-system/core";
 
 export async function generateMetadata() {
   return Meta.generate({
@@ -39,7 +39,7 @@ export default function Research() {
         <Posts range={[2, 3]} thumbnail />
         <Posts range={[4]} columns="2" />
       </Column>
-      {newsletter.display && <Mailchimp newsletter={newsletter} />}
+      {newsletter.display && <Mailchimp />}
     </Column>
   );
 }

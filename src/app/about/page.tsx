@@ -7,17 +7,17 @@ import {
   Icon,
   IconButton,
   Row,
-  SmartImage,
+  Media,
   Tag,
   Text,
 } from "@/once-ui/components";
-import { baseURL } from "@/app/resources";
+import { baseURL } from "@/resources";
 import TableOfContents from "@/components/about/TableOfContents";
 import styles from "@/components/about/about.module.scss";
-import { person, about, social } from "@/app/resources/content";
-import { getResearchFromSheet } from "@/app/utils/research";
+import { person, about, social } from "@/resources";
+import { getResearchFromSheet } from "@/utils/research";
 import React from "react";
-import { Meta, Schema } from "@/once-ui/modules";
+import { Meta, Schema } from "@once-ui-system/core";
 
 export async function generateMetadata() {
   return Meta.generate({
@@ -84,12 +84,12 @@ export default async function About() {
           position="fixed"
           paddingLeft="24"
           gap="32"
-          hide="s"
+          s={{ hide: true }}
         >
           <TableOfContents structure={structure} about={about} />
         </Column>
       )}
-      <Flex fillWidth mobileDirection="column" horizontal="center">
+      <Flex fillWidth s={{ direction: "column" }} horizontal="center">
         {about.avatar.display && (
           <Column
             className={styles.avatar}
@@ -229,7 +229,7 @@ export default async function About() {
                   >
                     <Flex
                       fillWidth
-                      horizontal="space-between"
+                      horizontal="between"
                       vertical="end"
                       marginBottom="4"
                     >
@@ -252,7 +252,7 @@ export default async function About() {
                     </Text>
                     <Column as="ul" gap="16">
                       {experience.achievements.map(
-                        (achievement: JSX.Element, index: number) => (
+                        (achievement: React.ReactNode, index: number) => (
                           <Text
                             as="li"
                             variant="body-default-m"
@@ -275,7 +275,7 @@ export default async function About() {
                             //@ts-ignore
                             height={image.height}
                           >
-                            <SmartImage
+                            <Media
                               enlarge
                               radius="m"
                               //@ts-ignore
@@ -343,7 +343,7 @@ export default async function About() {
 
                     <Flex
                       fillWidth
-                      horizontal="space-between"
+                      horizontal="between"
                       vertical="center"
                       marginBottom="4"
                       gap="12"

@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { CustomMDX } from "@/components/mdx";
-import { getPosts } from "@/app/utils/utils";
+import { getPosts } from "@/utils/utils";
 import {
   AvatarGroup,
   Button,
@@ -11,11 +11,11 @@ import {
   Row,
   Text,
 } from "@/once-ui/components";
-import { about, research, person, baseURL } from "@/app/resources";
-import { formatDate } from "@/app/utils/formatDate";
-import ScrollToHash from "@/components/ScrollToHash";
+import { about, research, person, baseURL } from "@/resources";
+import { formatDate } from "@/utils/formatDate";
+import { ScrollToHash } from "@/components/ScrollToHash";
 import { Metadata } from "next";
-import { Meta, Schema } from "@/once-ui/modules";
+import { Meta, Schema } from "@once-ui-system/core";
 
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
   const posts = getPosts(["src", "app", "research", "posts"]);
@@ -75,7 +75,7 @@ export default async function ResearchPost({
 
   return (
     <Row fillWidth>
-      <Row maxWidth={12} hide="m" />
+      <Row maxWidth={12} m={{ hide: true }} />
       <Row fillWidth horizontal="center">
         <Column as="section" maxWidth="xs" gap="l">
           <Schema
@@ -124,7 +124,7 @@ export default async function ResearchPost({
         position="sticky"
         top="80"
         gap="16"
-        hide="m"
+        m={{ hide: true }}
       >
         <Row
           gap="12"

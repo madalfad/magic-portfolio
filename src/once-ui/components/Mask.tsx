@@ -7,7 +7,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { Flex } from ".";
+import { Flex } from "@once-ui-system/core";
 import styles from "./Mask.module.scss";
 import classNames from "classnames";
 
@@ -38,8 +38,7 @@ const Mask = forwardRef<HTMLDivElement, MaskProps>(
         if (typeof forwardedRef === "function") {
           forwardedRef(maskRef.current);
         } else if (forwardedRef && "current" in forwardedRef) {
-          (forwardedRef as React.RefObject<HTMLDivElement | null>).current =
-            maskRef.current;
+          Object.assign(forwardedRef, { current: maskRef.current });
         }
       }
     }, [forwardedRef]);

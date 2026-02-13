@@ -1,22 +1,21 @@
 import { notFound } from "next/navigation";
 import { CustomMDX } from "@/components/mdx";
-import { getPosts } from "@/app/utils/utils";
+import { getPosts } from "@/utils/utils";
 import {
   AvatarGroup,
   Button,
   Column,
   Flex,
   Heading,
-  SmartImage,
+  Media,
   Tag,
   Text,
 } from "@/once-ui/components";
-import { baseURL } from "@/app/resources";
-import { about, person, work } from "@/app/resources/content";
-import { formatDate } from "@/app/utils/formatDate";
-import ScrollToHash from "@/components/ScrollToHash";
+import { baseURL, about, person, work } from "@/resources";
+import { formatDate } from "@/utils/formatDate";
+import { ScrollToHash } from "@/components/ScrollToHash";
 import { Metadata } from "next";
-import { Meta, Schema } from "@/once-ui/modules";
+import { Meta, Schema } from "@once-ui-system/core";
 
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
   const posts = getPosts(["src", "app", "work", "projects"]);
@@ -124,7 +123,7 @@ export default async function Project({
         )}
       </Column>
       {post.metadata.images.length > 0 && (
-        <SmartImage
+        <Media
           priority
           aspectRatio="16 / 9"
           radius="m"

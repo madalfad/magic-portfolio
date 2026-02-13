@@ -4,13 +4,13 @@ import {
   Column,
   Flex,
   Heading,
-  SmartImage,
+  Media,
   SmartLink,
   Tag,
   Text,
 } from "@/once-ui/components";
 import styles from "./Posts.module.scss";
-import { formatDate } from "@/app/utils/formatDate";
+import { formatDate } from "@/utils/formatDate";
 
 interface PostProps {
   post: any;
@@ -33,11 +33,11 @@ export default function Post({ post, thumbnail, direction }: PostProps) {
         direction={direction}
         radius="l"
         className={styles.hover}
-        mobileDirection="column"
+        s={{ direction: "column" }}
         fillWidth
       >
         {post.metadata.image && thumbnail && (
-          <SmartImage
+          <Media
             priority
             className={styles.image}
             sizes="(max-width: 768px) 100vw, 640px"
