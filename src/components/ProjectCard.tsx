@@ -7,32 +7,8 @@ import {
   Flex,
   Heading,
   SmartLink,
-  Tag,
   Text,
-} from "@/once-ui/components";
-
-type TagVariant =
-  | "brand"
-  | "accent"
-  | "warning"
-  | "success"
-  | "danger"
-  | "neutral"
-  | "info"
-  | "gradient";
-
-const tagVariantMap: Record<string, TagVariant> = {
-  "open source": "success",
-  "closed source": "neutral",
-  "work in progress": "warning",
-  archived: "danger",
-  beta: "info",
-  new: "accent",
-};
-
-function getTagVariant(tag: string): TagVariant {
-  return tagVariantMap[tag.toLowerCase()] || "neutral";
-}
+} from "@once-ui-system/core";
 
 interface ProjectCardProps {
   href: string;
@@ -43,7 +19,6 @@ interface ProjectCardProps {
   description: string;
   avatars: { src: string }[];
   link: string;
-  tags?: string[];
 }
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({
@@ -54,19 +29,18 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
   description,
   avatars,
   link,
-  tags = [],
 }) => {
   return (
     <Column fillWidth gap="m">
       <Carousel
         sizes="(max-width: 960px) 100vw, 960px"
-        images={images.map((image) => ({
-          src: image,
+        items={images.map((image) => ({
+          slide: image,
           alt: title,
         }))}
       />
       <Flex
-        mobileDirection="column"
+        s={{ direction: "column" }}
         fillWidth
         paddingX="s"
         paddingTop="12"
@@ -74,35 +48,17 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
         gap="l"
       >
         {title && (
-          <Flex flex={5} gap="8" direction="column">
+          <Flex flex={5}>
             <Heading as="h2" wrap="balance" variant="heading-strong-xl">
               {title}
             </Heading>
-            {tags.length > 0 && (
-              <Flex gap="8" wrap>
-                {tags.map((tag) => (
-                  <Tag
-                    key={tag}
-                    variant={getTagVariant(tag)}
-                    size="s"
-                    label={tag}
-                  />
-                ))}
-              </Flex>
-            )}
           </Flex>
         )}
         {(avatars?.length > 0 || description?.trim() || content?.trim()) && (
           <Column flex={7} gap="16">
-            {avatars?.length > 0 && (
-              <AvatarGroup avatars={avatars} size="m" reverse />
-            )}
+            {avatars?.length > 0 && <AvatarGroup avatars={avatars} size="m" reverse />}
             {description?.trim() && (
-              <Text
-                wrap="balance"
-                variant="body-default-s"
-                onBackground="neutral-weak"
-              >
+              <Text wrap="balance" variant="body-default-s" onBackground="neutral-weak">
                 {description}
               </Text>
             )}
