@@ -127,33 +127,20 @@ export default async function About() {
             marginBottom="32"
           >
             {about.calendar.display && (
-              <Flex
-                fitWidth
-                border="brand-alpha-medium"
+              <Button
+                href={about.calendar.link}
+                variant="secondary"
+                size="s"
+                data-border="rounded"
+                prefixIcon="calendar"
+                suffixIcon="chevronRight"
                 className={styles.blockAlign}
                 style={{
-                  backdropFilter: "blur(var(--static-space-1))",
+                  marginBottom: "var(--static-space-m)",
                 }}
-                background="brand-alpha-weak"
-                radius="full"
-                padding="4"
-                gap="8"
-                marginBottom="m"
-                vertical="center"
               >
-                <Icon
-                  paddingLeft="12"
-                  name="calendar"
-                  onBackground="brand-weak"
-                />
-                <Flex paddingX="8">Schedule a call</Flex>
-                <IconButton
-                  href={about.calendar.link}
-                  data-border="rounded"
-                  variant="secondary"
-                  icon="chevronRight"
-                />
-              </Flex>
+                Schedule a call
+              </Button>
             )}
             <Heading className={styles.textAlign} variant="display-strong-xl">
               {person.name}
@@ -204,7 +191,6 @@ export default async function About() {
               </Flex>
             )}
           </Column>
-
           {about.intro.display && (
             <Column
               textVariant="body-default-l"
@@ -215,7 +201,6 @@ export default async function About() {
               {about.intro.description}
             </Column>
           )}
-
           {about.work.display && (
             <Column fillWidth>
               <Heading
@@ -299,7 +284,6 @@ export default async function About() {
               </Column>
             </Column>
           )}
-
           {about.studies.display && (
             <Column fillWidth>
               <Heading
@@ -353,71 +337,6 @@ export default async function About() {
               </Column>
             </Column>
           )}
-
-          {about.research.display && researchProjects.length > 0 && (
-            <Column fillWidth>
-              <Heading
-                as="h2"
-                id={about.research.title}
-                variant="display-strong-s"
-                marginBottom="m"
-              >
-                {about.research.title}
-              </Heading>
-              <Column fillWidth gap="l" marginBottom="40">
-                {researchProjects.map((project, index) => (
-                  <Column key={`${project.slug}-${index}`} fillWidth>
-                    <Text variant="heading-strong-l">{project.title}</Text>
-
-                    <Flex
-                      fillWidth
-                      horizontal="between"
-                      vertical="center"
-                      marginBottom="4"
-                      gap="12"
-                    >
-                      <Column gap="4">
-                        <Text
-                          variant="body-default-m"
-                          onBackground="neutral-weak"
-                        >
-                          {project.description}
-                        </Text>
-                        <Flex gap="8" vertical="center">
-                          {project.type && (
-                            <Tag size="s" variant="neutral">
-                              {project.type}
-                            </Tag>
-                          )}
-                          {project.status && (
-                            <Tag size="s" variant="neutral">
-                              {project.status}
-                            </Tag>
-                          )}
-                          {project.date && (
-                            <Text
-                              variant="label-default-s"
-                              onBackground="neutral-weak"
-                            >
-                              {project.date}
-                            </Text>
-                          )}
-                        </Flex>
-                      </Column>
-                      {project.link && (
-                        <IconButton
-                          href={project.link}
-                          icon="chevronRight"
-                          variant="secondary"
-                        />
-                      )}
-                    </Flex>
-                  </Column>
-                ))}
-              </Column>
-            </Column>
-          )}
-
           {about.technical.display && (
             <Column fillWidth>
               <Heading
@@ -489,6 +408,70 @@ export default async function About() {
                     </Flex>
                   </Column>
                 )}
+              </Column>
+            </Column>
+          )}
+          {about.research.display && researchProjects.length > 0 && (
+            <Column fillWidth>
+              <Heading
+                as="h2"
+                id={about.research.title}
+                variant="display-strong-s"
+                marginBottom="m"
+                marginTop="m"
+              >
+                {about.research.title}
+              </Heading>
+              <Column fillWidth gap="l" marginBottom="40">
+                {researchProjects.map((project, index) => (
+                  <Column key={`${project.slug}-${index}`} fillWidth>
+                    <Text variant="heading-strong-l">{project.title}</Text>
+
+                    <Flex
+                      fillWidth
+                      horizontal="between"
+                      vertical="center"
+                      marginBottom="4"
+                      gap="12"
+                    >
+                      <Column gap="4">
+                        <Text
+                          variant="body-default-m"
+                          onBackground="neutral-weak"
+                        >
+                          {project.description}
+                        </Text>
+                        <Flex gap="8" vertical="center">
+                          {project.type && (
+                            <Tag size="s" variant="neutral">
+                              {project.type}
+                            </Tag>
+                          )}
+                          {project.status && (
+                            <Tag size="s" variant="neutral">
+                              {project.status}
+                            </Tag>
+                          )}
+                          {project.date && (
+                            <Text
+                              variant="label-default-s"
+                              onBackground="neutral-weak"
+                            >
+                              {project.date}
+                            </Text>
+                          )}
+                        </Flex>
+                      </Column>
+                      {project.link && (
+                        <IconButton
+                          href={project.link}
+                          icon="chevronRight"
+                          variant="secondary"
+                        />
+                      )}
+                    </Flex>
+                  </Column>
+                ))}
               </Column>
             </Column>
           )}

@@ -11,6 +11,7 @@ export interface ResearchProject {
   abstract: string;
   status: string;
   slug: string;
+  featured: boolean;
 }
 
 /**
@@ -103,7 +104,7 @@ function parseCSV(csvText: string): ResearchProject[] {
     .map((row) => {
       const fields = parseCSVRow(row);
 
-      // Expect 9 columns: Date, Type, Title, Journal/Conference, Link, Image, Abstract, Status, Slug
+      // Expect 10 columns: Date, Type, Title, Journal/Conference, Link, Image, Abstract, Status, Slug, Featured
       const [
         date = "",
         type = "",
@@ -114,6 +115,7 @@ function parseCSV(csvText: string): ResearchProject[] {
         abstract = "",
         status = "",
         slug = "",
+        featuredRaw = "",
       ] = fields;
 
       if (!title) return null;
@@ -128,6 +130,10 @@ function parseCSV(csvText: string): ResearchProject[] {
         abstract,
         status,
         slug,
+        featured:
+          featuredRaw.toLowerCase().trim() === "true" ||
+          featuredRaw.trim() === "1" ||
+          featuredRaw.toLowerCase().trim() === "yes",
       } satisfies ResearchProject;
     })
     .filter((item): item is ResearchProject => item !== null);

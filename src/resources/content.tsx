@@ -94,7 +94,7 @@ const about = {
   intro: {
     display: true,
     title: "Introduction",
-    description: `${person.firstName} is an Indiana-based medical student with a passion for transforming complex challenges in medicine and technology into simple, elegant solutions. His work spans academic research, clinical care, and the convergence of medicine and technology.`,
+    description: `${person.firstName} is a third-year medical student with a passion for transforming complex challenges in medicine and technology into simple, elegant solutions. His work spans academic research, clinical care, and the convergence of medicine and technology.`,
   },
   work: {
     display: false, // set to false to hide this section

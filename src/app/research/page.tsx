@@ -1,8 +1,19 @@
-import { Column, Heading } from "@/once-ui/components";
+import {
+  Avatar,
+  Column,
+  Flex,
+  Heading,
+  IconButton,
+  Row,
+  Tag,
+  Text,
+  Timeline,
+} from "@/once-ui/components";
 import { Mailchimp } from "@/components";
-import { Posts } from "@/components/research/Posts";
+import { ResearchCarousel } from "@/components/research/ResearchCarousel";
 import { baseURL } from "@/resources";
 import { research, person, newsletter } from "@/resources";
+import { getResearchFromSheet } from "@/utils/research";
 import { Meta, Schema } from "@once-ui-system/core";
 
 export async function generateMetadata() {
@@ -15,7 +26,45 @@ export async function generateMetadata() {
   });
 }
 
-export default function Research() {
+function parseDate(dateStr: string): number {
+  const parsed = Date.parse(dateStr);
+  return isNaN(parsed) ? 0 : parsed;
+}
+
+function statusToState(status: string): "active" | "success" | "inactive" {
+  const s = status.toLowerCase().trim();
+  if (
+    s.includes("in progress") ||
+    s.includes("ongoing") ||
+    s.includes("active") ||
+    s.includes("under review") ||
+    s.includes("pending") ||
+    s.includes("submitted")
+  ) {
+    return "active";
+  }
+  if (
+    s.includes("published") ||
+    s.includes("completed") ||
+    s.includes("accepted") ||
+    s.includes("presented")
+  ) {
+    return "success";
+  }
+  return "inactive";
+}
+
+export default async function Research() {
+  const allProjects = await getResearchFromSheet(0); // bypass cache to pick up new columns
+
+  // Sort all projects by date descending (most recent first)
+  const sorted = [...allProjects].sort(
+    (a, b) => parseDate(b.date) - parseDate(a.date),
+  );
+
+  // Featured projects for the carousel (driven by CSV "Featured" column)
+  const featured = sorted.filter((p) => p.featured);
+
   return (
     <Column maxWidth="s">
       <Schema
@@ -34,10 +83,118 @@ export default function Research() {
       <Heading marginBottom="l" variant="display-strong-s">
         {research.title}
       </Heading>
-      <Column fillWidth flex={1}>
-        <Posts range={[1, 1]} thumbnail direction="column" />
-        <Posts range={[2, 3]} thumbnail />
-        <Posts range={[4]} columns="2" />
+      <Column fillWidth flex={1} gap="l">
+        {/* Featured research carousel */}
+        {featured.length > 0 && (
+          <Column fillWidth gap="m">
+            <Heading as="h2" variant="display-strong-s">
+              Featured Works
+            </Heading>
+            <ResearchCarousel projects={featured} />
+          </Column>
+        )}
+
+        {/* All research items as a timeline */}
+        {sorted.length > 0 && (
+          <Column fillWidth>
+            <Heading as="h2" variant="display-strong-s" marginBottom="m">
+              All Research
+            </Heading>
+            <Column fillWidth marginBottom="40">
+              <Timeline
+                items={sorted.map((project, index) => ({
+                  marker: project.image ? (
+                    <Avatar
+                      src={project.image}
+                      size="m"
+                      style={{
+                        border: "1px solid var(--neutral-alpha-medium)",
+                      }}
+                    />
+                  ) : undefined,
+                  label: project.title,
+                  description: project.description || undefined,
+                  children: (
+                    <Column gap="8" marginTop="8">
+                      {project.abstract && (
+                        <Text
+                          variant="body-default-s"
+                          onBackground="neutral-weak"
+                          style={{
+                            display: "-webkit-box",
+                            WebkitLineClamp: 3,
+                            WebkitBoxOrient: "vertical",
+                            overflow: "hidden",
+                          }}
+                        >
+                          {project.abstract}
+                        </Text>
+                      )}
+                      <Flex gap="8" wrap vertical="center">
+                        {project.type && (
+                          <Tag
+                            size="s"
+                            variant="neutral"
+                            label={project.type}
+                          />
+                        )}
+                        {project.status && (
+                          <Tag
+                            size="s"
+                            variant="neutral"
+                            label={project.status}
+                          />
+                        )}
+                        {project.date && (
+                          <Row
+                            fitWidth
+                            radius="full"
+                            paddingY="4"
+                            paddingX="8"
+                            border="neutral-alpha-medium"
+                            textVariant="label-default-xs"
+                            onBackground="neutral-weak"
+                          >
+                            {project.date}
+                          </Row>
+                        )}
+                      </Flex>
+                      {project.link && (
+                        <Flex marginTop="4">
+                          <IconButton
+                            href={project.link}
+                            icon="arrowUpRightFromSquare"
+                            variant="secondary"
+                            size="s"
+                            tooltip="View publication"
+                          />
+                        </Flex>
+                      )}
+                    </Column>
+                  ),
+                  state: project.status
+                    ? statusToState(project.status)
+                    : index === 0
+                      ? "active"
+                      : "success",
+                }))}
+              />
+            </Column>
+          </Column>
+        )}
+
+        {/* Empty state */}
+        {allProjects.length === 0 && (
+          <Column fillWidth padding="xl" horizontal="center" gap="m">
+            <Text
+              variant="body-default-m"
+              onBackground="neutral-weak"
+              align="center"
+            >
+              Research publications coming soon.
+            </Text>
+          </Column>
+        )}
       </Column>
       {newsletter.display && <Mailchimp />}
     </Column>
