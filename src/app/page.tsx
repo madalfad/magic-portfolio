@@ -16,6 +16,7 @@ import {
   IconButton,
   TiltFx,
   HoloFx,
+  Media,
 } from "@/once-ui/components";
 import { Projects } from "@/components/work/Projects";
 import { baseURL, routes } from "@/resources";
@@ -55,8 +56,55 @@ export default async function Home() {
       />
 
       {/* Hero */}
-      <Column fillWidth paddingY="24" gap="m">
-        <Column maxWidth="s">
+      <Column
+        fillWidth
+        paddingY="24"
+        gap="m"
+        style={{ position: "relative", overflow: "hidden" }}
+      >
+        <RevealFx
+          translateY="0"
+          delay={0.3}
+          style={{
+            position: "absolute",
+            right: "0%",
+            top: "50%",
+            transform: "translateY(-50%)",
+            height: "90%",
+            width: "auto",
+            opacity: 0.5,
+            zIndex: 0,
+          }}
+        >
+          <HoloFx
+            minHeight={10}
+            shine={{
+              opacity: 30,
+              blending: "color-dodge",
+            }}
+            burn={{
+              opacity: 30,
+              blending: "color-dodge",
+            }}
+            texture={{
+              opacity: 10,
+              image: "/images/textures/foil.jpg",
+              blending: "color-dodge",
+            }}
+          >
+            <Media
+              src="/images/resources/callilogo.png"
+              alt=""
+              aria-hidden="true"
+              style={{
+                height: "100%",
+                width: "auto",
+                objectFit: "contain",
+              }}
+            />
+          </HoloFx>
+        </RevealFx>
+        <Column maxWidth="s" style={{ position: "relative", zIndex: 1 }}>
           {home.featured?.display && (
             <RevealFx
               fillWidth
@@ -134,7 +182,13 @@ export default async function Home() {
 
       {/* Projects */}
       <RevealFx translateY="12" delay={0.55} fillWidth>
-        <Column fillWidth gap="16">
+        <Column
+          fillWidth
+          gap="16"
+          marginLeft="8"
+          marginRight="8"
+          marginBottom="8"
+        >
           <Flex fillWidth horizontal="between" vertical="center">
             <Heading as="h2" variant="display-strong-xs">
               Projects
