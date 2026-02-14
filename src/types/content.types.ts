@@ -23,8 +23,10 @@ export type Person = {
   avatar: string;
   /** Email address */
   email: string;
-  /** IANA time zone location */
+  /** IANA time zone location (used for clock/timezone) */
   location: IANATimeZone;
+  /** Display location shown in the UI (e.g., "South Bend, IN") */
+  displayLocation?: string;
   /** Languages spoken */
   languages?: string[];
 };
@@ -175,8 +177,12 @@ export interface About extends BasePageConfig {
     institutions: Array<{
       /** Institution name */
       name: string;
-      /** Description of studies */
-      description: React.ReactNode;
+      /** Degree(s) earned or in progress */
+      degree: string[];
+      /** Year of completion (omit if still in progress) */
+      year?: string;
+      /** Institution logo/image */
+      image?: string;
     }>;
   };
   /** Technical skills section */

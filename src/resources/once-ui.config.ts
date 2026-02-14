@@ -18,9 +18,9 @@ const baseURL: string = "https://madalfad.me";
 
 const routes: RoutesConfig = {
   "/": true,
-  "/about": true,
+  "/cv": true,
   "/work": true,
-  "/blog": true,
+  "/research": true,
   "/gallery": true,
 };
 

@@ -158,7 +158,7 @@ export default async function Home() {
             paddingLeft="12"
           >
             <Button
-              id="about"
+              id="cv"
               data-border="rounded"
               href={about.path}
               variant="secondary"
@@ -173,7 +173,7 @@ export default async function Home() {
                     size="m"
                   />
                 )}
-                {about.title}
+                View my CV
               </Flex>
             </Button>
           </RevealFx>
@@ -296,7 +296,7 @@ export default async function Home() {
               Education
             </Heading>
             <Button
-              href="/about#studies"
+              href="/cv#studies"
               variant="tertiary"
               size="s"
               data-border="rounded"
@@ -318,7 +318,7 @@ export default async function Home() {
                   fillWidth
                   radius="l"
                   border="neutral-alpha-medium"
-                  href="/about#studies"
+                  href="/cv#studies"
                 >
                   <Column
                     fillWidth
@@ -364,7 +364,8 @@ export default async function Home() {
                         onBackground="neutral-weak"
                         align="center"
                       >
-                        {institution.description}
+                        {institution.degree.join(" · ")}
+                        {institution.year && `, ${institution.year}`}
                       </Text>
                     </Column>
                   </Column>
@@ -382,7 +383,7 @@ export default async function Home() {
             fillWidth
             radius="l"
             border="neutral-alpha-medium"
-            href="/about#research"
+            href="/cv#research"
           >
             <Column fillWidth padding="20" gap="8">
               <Heading as="h3" variant="heading-strong-m">

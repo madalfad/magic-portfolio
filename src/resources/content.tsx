@@ -10,6 +10,7 @@ const person = {
   avatar: "/images/hs1sq.jpg",
   email: "mahmoud@madalfad.me",
   location: "America/Indianapolis", // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
+  displayLocation: "South Bend, IN", // Custom display location shown in the UI
   languages: ["English", "Arabic"], // optional: Leave the array empty if you don't want to display languages
 };
 
@@ -75,9 +76,9 @@ const home = {
 };
 
 const about = {
-  path: "/about",
-  label: "About",
-  title: `About – ${person.name}`,
+  path: "/cv",
+  label: "CV",
+  title: `CV – ${person.name}`,
   description: `Meet ${person.name}, ${person.role} from ${person.location}`,
   tableOfContent: {
     display: true,
@@ -93,14 +94,7 @@ const about = {
   intro: {
     display: true,
     title: "Introduction",
-    description: (
-      <>
-        {person.firstName} is an Indiana-based medical student with a passion
-        for transforming complex challenges in medicine and technology into
-        simple, elegant solutions. His work spans adacemic research, clinical
-        care, and the convergence of medicine and technology.
-      </>
-    ),
+    description: `${person.firstName} is an Indiana-based medical student with a passion for transforming complex challenges in medicine and technology into simple, elegant solutions. His work spans academic research, clinical care, and the convergence of medicine and technology.`,
   },
   work: {
     display: false, // set to false to hide this section
@@ -111,14 +105,8 @@ const about = {
         timeframe: "2025 - Present",
         role: "Founder, Lead Developer",
         achievements: [
-          <>
-            Developed Pearlium Health, an AI-powered modular clinical platform
-            for providers to streamline patient care workflows.
-          </>,
-          <>
-            Developed PearlLM, an AI-powered clinical decision support system
-            with industry-leading performance and accuracy in clinical tasks.
-          </>,
+          "Developed Pearlium Health, an AI-powered modular clinical platform for providers to streamline patient care workflows.",
+          "Developed PearlLM, an AI-powered clinical decision support system with industry-leading performance and accuracy in clinical tasks.",
         ],
         images: [
           // optional: leave the array empty if you don't want to display images
@@ -138,28 +126,26 @@ const about = {
     institutions: [
       {
         name: "American University of the Caribbean School of Medicine",
-        description: <>M.D. Candidate</>,
+        degree: ["M.D. Candidate"],
+        year: "2028",
         image: "/images/resources/AUCSeal.png",
       },
       {
         name: "Indiana University School of Medicine",
-        description: <>M.S. in Medical Sciences, 2025</>,
+        degree: ["M.S. in Medical Sciences"],
+        year: "2025",
         image: "/images/resources/IUSeal.png",
       },
       {
         name: "Loyola University Chicago",
-        description: <>M.A. in Medical Sciences, 2022</>,
+        degree: ["M.A. in Medical Sciences"],
+        year: "2022",
         image: "/images/resources/LUCSeal.png",
       },
       {
         name: "Indiana University Bloomington",
-        description: (
-          <>
-            B.S. in Neuroscience, 2021
-            <br />
-            B.A. in Chemistry, 2021
-          </>
-        ),
+        degree: ["B.S. in Neuroscience", "B.A. in Chemistry"],
+        year: "2021",
         image: "/images/resources/IUSeal.png",
       },
     ],

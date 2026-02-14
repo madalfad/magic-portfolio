@@ -10,6 +10,7 @@ import {
   Media,
   Tag,
   Text,
+  Timeline,
 } from "@/once-ui/components";
 import { baseURL } from "@/resources";
 import TableOfContents from "@/components/about/TableOfContents";
@@ -104,7 +105,7 @@ export default async function About() {
             <Avatar src={person.avatar} size="xl" />
             <Flex gap="8" vertical="center">
               <Icon onBackground="accent-weak" name="globe" />
-              {person.location}
+              {person.displayLocation || person.location}
             </Flex>
             {person.languages.length > 0 && (
               <Flex wrap gap="8">
@@ -178,23 +179,27 @@ export default async function About() {
                 {social
                   .filter((item) => item.link)
                   .flatMap((item, index) => [
-                    <Button
-                      key={`${item.name}-${index}`}
-                      className="s-flex-hide"
-                      href={item.link}
-                      prefixIcon={item.icon}
-                      label={item.name}
-                      size="s"
-                      variant="secondary"
-                    />,
-                    <IconButton
+                    <Row key={`${item.name}-${index}`} s={{ hide: true }}>
+                      <Button
+                        href={item.link}
+                        prefixIcon={item.icon}
+                        label={item.name}
+                        size="s"
+                        variant="secondary"
+                      />
+                    </Row>,
+                    <Row
                       key={`${item.name}-icon-${index}`}
-                      className="s-flex-show"
-                      size="l"
-                      href={item.link}
-                      icon={item.icon}
-                      variant="secondary"
-                    />,
+                      hide
+                      s={{ hide: false }}
+                    >
+                      <IconButton
+                        size="l"
+                        href={item.link}
+                        icon={item.icon}
+                        variant="secondary"
+                      />
+                    </Row>,
                   ])}
               </Flex>
             )}
@@ -305,23 +310,46 @@ export default async function About() {
               >
                 {about.studies.title}
               </Heading>
-              <Column fillWidth gap="l" marginBottom="40">
-                {about.studies.institutions.map((institution, index) => (
-                  <Row key={`${institution.name}-${index}`} fillWidth gap="16">
-                    <Avatar src={institution.image} size="l" />
-                    <Column fillWidth gap="4">
-                      <Text id={institution.name} variant="heading-strong-l">
-                        {institution.name}
-                      </Text>
-                      <Text
-                        variant="heading-default-xs"
-                        onBackground="neutral-weak"
-                      >
-                        {institution.description}
-                      </Text>
-                    </Column>
-                  </Row>
-                ))}
+              <Column fillWidth marginBottom="40">
+                <Timeline
+                  items={about.studies.institutions.map(
+                    (institution, index) => ({
+                      marker: (
+                        <Avatar
+                          src={institution.image}
+                          size="m"
+                          style={{
+                            border: "1px solid var(--neutral-alpha-medium)",
+                          }}
+                        />
+                      ),
+                      label: (
+                        <Text id={institution.name} variant="heading-strong-l">
+                          {institution.name}
+                        </Text>
+                      ),
+                      description: institution.degree.join(" · "),
+                      children: institution.year ? (
+                        <Row
+                          fitWidth
+                          radius="full"
+                          paddingY="4"
+                          paddingX="8"
+                          border="neutral-alpha-medium"
+                          textVariant="label-default-xs"
+                          onBackground="neutral-weak"
+                          marginTop="8"
+                        >
+                          {institution.year}
+                        </Row>
+                      ) : undefined,
+                      state:
+                        index === 0
+                          ? ("active" as const)
+                          : ("success" as const),
+                    }),
+                  )}
+                />
               </Column>
             </Column>
           )}
