@@ -5,6 +5,7 @@ import "@/resources/custom.css";
 import classNames from "classnames";
 
 import { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { Footer, Header, RouteGuard, Providers } from "@/components";
 import { baseURL, effects, fonts, style, dataStyle, home } from "@/resources";
 
@@ -185,6 +186,7 @@ export default async function RootLayout({
             </Flex>
           </Flex>
           <Footer />
+          <Analytics />
         </Column>
       </Providers>
     </Flex>
