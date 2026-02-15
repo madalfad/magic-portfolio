@@ -19,10 +19,11 @@ import { person, about, social } from "@/resources";
 import { getResearchFromSheet } from "@/utils/research";
 import React from "react";
 import { Meta, Schema } from "@once-ui-system/core";
+import type { Metadata } from "next";
 import { CopyToClipboard } from "@/components/about/CopyToClipboard";
 import { ScheduleCallModal } from "@/components/about/ScheduleCallModal";
 
-export async function generateMetadata() {
+export async function generateMetadata(): Promise<Metadata> {
   return Meta.generate({
     title: about.title,
     description: about.description,

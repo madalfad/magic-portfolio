@@ -4,13 +4,14 @@ import "@/resources/custom.css";
 
 import classNames from "classnames";
 
+import { Metadata } from "next";
 import { Footer, Header, RouteGuard, Providers } from "@/components";
 import { baseURL, effects, fonts, style, dataStyle, home } from "@/resources";
 
 import { Background, Column, Flex, Mask, MatrixFx } from "@/once-ui/components";
 import { opacity, SpacingToken, RevealFx, Meta } from "@once-ui-system/core";
 
-export async function generateMetadata() {
+export async function generateMetadata(): Promise<Metadata> {
   return Meta.generate({
     title: home.title,
     description: home.description,

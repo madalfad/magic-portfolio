@@ -15,8 +15,9 @@ import { baseURL } from "@/resources";
 import { research, person, newsletter } from "@/resources";
 import { getResearchFromSheet } from "@/utils/research";
 import { Meta, Schema } from "@once-ui-system/core";
+import type { Metadata } from "next";
 
-export async function generateMetadata() {
+export async function generateMetadata(): Promise<Metadata> {
   return Meta.generate({
     title: research.title,
     description: research.description,

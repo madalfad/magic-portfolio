@@ -1,4 +1,5 @@
 import React from "react";
+import type { Metadata } from "next";
 
 import {
   Heading,
@@ -26,7 +27,7 @@ import { ReclaimScheduler } from "@/components/ReclaimScheduler";
 import { getResearchFromSheet } from "@/utils/research";
 import { Meta, Schema } from "@once-ui-system/core";
 
-export async function generateMetadata() {
+export async function generateMetadata(): Promise<Metadata> {
   return Meta.generate({
     title: home.title,
     description: home.description,
