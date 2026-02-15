@@ -65,8 +65,9 @@ export default async function Home() {
         style={{ position: "relative", overflow: "hidden" }}
       >
         <RevealFx
+          speed="fast"
           translateY="0"
-          delay={0.3}
+          delay={0.1}
           style={{
             position: "absolute",
             right: "0%",
@@ -109,6 +110,7 @@ export default async function Home() {
         <Column maxWidth="s" style={{ position: "relative", zIndex: 1 }}>
           {home.featured?.display && (
             <RevealFx
+              speed="fast"
               fillWidth
               horizontal="start"
               paddingTop="16"
@@ -129,6 +131,7 @@ export default async function Home() {
             </RevealFx>
           )}
           <RevealFx
+            speed="fast"
             translateY="4"
             fillWidth
             horizontal="start"
@@ -139,8 +142,9 @@ export default async function Home() {
             </Heading>
           </RevealFx>
           <RevealFx
+            speed="fast"
             translateY="8"
-            delay={0.2}
+            delay={0.1}
             fillWidth
             horizontal="start"
             paddingBottom="24"
@@ -154,8 +158,9 @@ export default async function Home() {
             </Text>
           </RevealFx>
           <RevealFx
+            speed="fast"
             paddingTop="12"
-            delay={0.4}
+            delay={0.2}
             horizontal="start"
             paddingLeft="12"
           >
@@ -183,7 +188,7 @@ export default async function Home() {
       </Column>
 
       {/* Projects */}
-      <RevealFx translateY="12" delay={0.55} fillWidth>
+      <RevealFx speed="fast" translateY="12" delay={0.25} fillWidth>
         <Column
           fillWidth
           gap="16"
@@ -212,7 +217,7 @@ export default async function Home() {
 
       {/* Research */}
       {routes["/research"] && recentResearch.length > 0 && (
-        <RevealFx translateY="16" delay={0.65} fillWidth>
+        <RevealFx speed="fast" translateY="16" delay={0.3} fillWidth>
           <Column fillWidth gap="16">
             <Flex fillWidth horizontal="between" vertical="center">
               <Heading as="h2" variant="display-strong-xs" wrap="balance">
@@ -290,7 +295,7 @@ export default async function Home() {
       )}
 
       {/* Education */}
-      <RevealFx translateY="8" delay={0.45} fillWidth>
+      <RevealFx speed="fast" translateY="8" delay={0.35} fillWidth>
         <Column
           fillWidth
           gap="16"
@@ -384,7 +389,7 @@ export default async function Home() {
       </RevealFx>
 
       {/* Optional spotlight cards for section navigation */}
-      <RevealFx translateY={16} delay={0.75} fillWidth>
+      <RevealFx speed="fast" translateY={16} delay={0.4} fillWidth>
         <Flex fillWidth gap="12" s={{ direction: "column" }}>
           <Card
             fillWidth
