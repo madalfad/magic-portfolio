@@ -19,6 +19,7 @@ import { person, about, social } from "@/resources";
 import { getResearchFromSheet } from "@/utils/research";
 import React from "react";
 import { Meta, Schema } from "@once-ui-system/core";
+import { CopyToClipboard } from "@/components/about/CopyToClipboard";
 
 export async function generateMetadata() {
   return Meta.generate({
@@ -165,29 +166,42 @@ export default async function About() {
               >
                 {social
                   .filter((item) => item.link)
-                  .flatMap((item, index) => [
-                    <Row key={`${item.name}-${index}`} s={{ hide: true }}>
-                      <Button
-                        href={item.link}
-                        prefixIcon={item.icon}
-                        label={item.name}
-                        size="s"
-                        variant="secondary"
-                      />
-                    </Row>,
-                    <Row
-                      key={`${item.name}-icon-${index}`}
-                      hide
-                      s={{ hide: false }}
-                    >
-                      <IconButton
-                        size="l"
-                        href={item.link}
-                        icon={item.icon}
-                        variant="secondary"
-                      />
-                    </Row>,
-                  ])}
+                  .flatMap((item, index) =>
+                    item.link.startsWith("mailto:")
+                      ? [
+                          <React.Fragment key={`${item.name}-${index}`}>
+                            <CopyToClipboard
+                              textToCopy={item.link.replace("mailto:", "")}
+                              label={item.name}
+                              icon={item.icon}
+                              toastMessage="Email address copied to clipboard!"
+                            />
+                          </React.Fragment>,
+                        ]
+                      : [
+                          <Row key={`${item.name}-${index}`} s={{ hide: true }}>
+                            <Button
+                              href={item.link}
+                              prefixIcon={item.icon}
+                              label={item.name}
+                              size="s"
+                              variant="secondary"
+                            />
+                          </Row>,
+                          <Row
+                            key={`${item.name}-icon-${index}`}
+                            hide
+                            s={{ hide: false }}
+                          >
+                            <IconButton
+                              size="l"
+                              href={item.link}
+                              icon={item.icon}
+                              variant="secondary"
+                            />
+                          </Row>,
+                        ],
+                  )}
               </Flex>
             )}
           </Column>
@@ -317,12 +331,13 @@ export default async function About() {
                         <Row
                           fitWidth
                           radius="full"
-                          paddingY="4"
-                          paddingX="8"
-                          border="neutral-alpha-medium"
+                          // paddingY="4"
+                          // paddingX="8"
+                          // border="neutral-alpha-medium"
                           textVariant="label-default-xs"
                           onBackground="neutral-weak"
-                          marginTop="8"
+                          marginTop="4"
+                          marginBottom="8"
                         >
                           {institution.year}
                         </Row>
