@@ -195,7 +195,7 @@ const about = {
   },
   research: {
     display: true, // set to false to hide this section
-    title: `${person.firstName}'s Research`,
+    title: `Research`,
     // Projects are now fetched from Google Sheets at build time.
     // See src/app/utils/research.ts for the fetch utility.
     projects: [],
@@ -215,7 +215,7 @@ const projects = {
   path: "/projects",
   label: "Projects",
   title: `${person.firstName}'s Projects`,
-  description: `Design and dev projects by ${person.name}`,
+  description: `Development projects by ${person.name}`,
   // Create new project pages by adding a new .mdx file to app/projects/projects
   // All projects will be listed on the /home and /projects routes
 };
