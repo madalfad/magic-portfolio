@@ -72,15 +72,15 @@ export default async function Research() {
           image: `${baseURL}${person.avatar}`,
         }}
       />
-      <Heading marginBottom="l" variant="display-strong-s">
+      <Heading marginBottom="l" variant="display-strong-l">
         {research.title}
       </Heading>
       <Column fillWidth flex={1} gap="l">
         {/* Featured research carousel */}
         {featured.length > 0 && (
           <Column fillWidth gap="m">
-            <Heading as="h2" variant="display-strong-s">
-              Featured Works
+            <Heading as="h2" variant="display-strong-xs">
+              Featured
             </Heading>
             <ResearchCarousel projects={featured} key="research-carousel" />
           </Column>
@@ -89,7 +89,7 @@ export default async function Research() {
         {/* All research items as a timeline */}
         {allProjects.length > 0 && (
           <Column fillWidth>
-            <Heading as="h2" variant="display-strong-s" marginBottom="m">
+            <Heading as="h2" variant="display-strong-xs" marginBottom="m">
               All Research
             </Heading>
             <Column fillWidth marginBottom="40">

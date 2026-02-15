@@ -15,7 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function ProjectsPage() {
   return (
-    <Column maxWidth="m" paddingTop="24">
+    <Column maxWidth="s">
       <Schema
         as="webPage"
         baseURL={baseURL}
@@ -29,10 +29,12 @@ export default function ProjectsPage() {
           image: `${baseURL}${person.avatar}`,
         }}
       />
-      <Heading marginBottom="l" variant="heading-strong-xl" align="center">
+      <Heading marginBottom="l" variant="display-strong-l">
         {projects.title}
       </Heading>
-      <Projects />
+      <Column fillWidth flex={1} gap="l">
+        <Projects />
+      </Column>
     </Column>
   );
 }
