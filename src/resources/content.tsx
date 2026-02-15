@@ -25,8 +25,9 @@ const newsletter = {
   title: <>Subscribe to {person.firstName}'s Newsletter</>,
   description: (
     <>
-      I occasionally write about design, technology, and share thoughts on the
-      intersection of creativity and engineering.
+      Get updates on my latest projects, research, and insights in medicine and
+      technology. No spam, just valuable content delivered straight to your
+      inbox.
     </>
   ),
 };
@@ -210,13 +211,13 @@ const research = {
   // All posts will be listed on the /research route
 };
 
-const work = {
-  path: "/work",
-  label: "Work",
+const projects = {
+  path: "/projects",
+  label: "Projects",
   title: `Projects – ${person.name}`,
   description: `Design and dev projects by ${person.name}`,
-  // Create new project pages by adding a new .mdx file to app/work/projects
-  // All projects will be listed on the /home and /work routes
+  // Create new project pages by adding a new .mdx file to app/projects/projects
+  // All projects will be listed on the /home and /projects routes
 };
 
 const gallery = {
@@ -270,4 +271,4 @@ const gallery = {
   ],
 };
 
-export { person, social, newsletter, home, about, research, work, gallery };
+export { person, social, newsletter, home, about, research, projects, gallery };

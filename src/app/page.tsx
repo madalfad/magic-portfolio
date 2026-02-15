@@ -19,9 +19,9 @@ import {
   HoloFx,
   Media,
 } from "@/once-ui/components";
-import { Projects } from "@/components/work/Projects";
+import { Projects } from "@/components/projects/Projects";
 import { baseURL, routes } from "@/resources";
-import { home, about, person, newsletter } from "@/resources";
+import { home, about, person, newsletter, projects } from "@/resources";
 import { Mailchimp } from "@/components";
 import { ReclaimScheduler } from "@/components/ReclaimScheduler";
 import { getResearchFromSheet } from "@/utils/research";
@@ -195,9 +195,9 @@ export default async function Home() {
             <Heading as="h2" variant="display-strong-xs">
               Projects
             </Heading>
-            {routes["/work"] && (
+            {routes["/projects"] && (
               <Button
-                href="/work"
+                href="/projects"
                 variant="tertiary"
                 size="s"
                 data-border="rounded"
@@ -401,7 +401,12 @@ export default async function Home() {
               </Text>
             </Column>
           </Card>
-          <Card fillWidth radius="l" border="neutral-alpha-medium" href="/work">
+          <Card
+            fillWidth
+            radius="l"
+            border="neutral-alpha-medium"
+            href="/projects"
+          >
             <Column fillWidth padding="20" gap="8">
               <Heading as="h3" variant="heading-strong-m">
                 Project portfolio

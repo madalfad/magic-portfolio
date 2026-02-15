@@ -11,14 +11,14 @@ import {
   Tag,
   Text,
 } from "@/once-ui/components";
-import { baseURL, about, person, work } from "@/resources";
+import { baseURL, about, person, projects } from "@/resources";
 import { formatDate } from "@/utils/formatDate";
 import { ScrollToHash } from "@/components/ScrollToHash";
 import { Metadata } from "next";
 import { Meta, Schema } from "@once-ui-system/core";
 
 export async function generateStaticParams(): Promise<{ slug: string }[]> {
-  const posts = getPosts(["src", "app", "work", "projects"]);
+  const posts = getPosts(["src", "app", "projects", "projects"]);
   return posts.map((post) => ({
     slug: post.slug,
   }));
@@ -34,7 +34,7 @@ export async function generateMetadata({
     ? routeParams.slug.join("/")
     : routeParams.slug || "";
 
-  const posts = getPosts(["src", "app", "work", "projects"]);
+  const posts = getPosts(["src", "app", "projects", "projects"]);
   let post = posts.find((post) => post.slug === slugPath);
 
   if (!post) return {};
@@ -46,7 +46,7 @@ export async function generateMetadata({
     image: post.metadata.image
       ? `${baseURL}${post.metadata.image}`
       : `${baseURL}/og?title=${post.metadata.title}`,
-    path: `${work.path}/${post.slug}`,
+    path: `${projects.path}/${post.slug}`,
   });
 }
 
@@ -60,7 +60,7 @@ export default async function Project({
     ? routeParams.slug.join("/")
     : routeParams.slug || "";
 
-  let post = getPosts(["src", "app", "work", "projects"]).find(
+  let post = getPosts(["src", "app", "projects", "projects"]).find(
     (post) => post.slug === slugPath,
   );
 
@@ -78,7 +78,7 @@ export default async function Project({
       <Schema
         as="blogPosting"
         baseURL={baseURL}
-        path={`${work.path}/${post.slug}`}
+        path={`${projects.path}/${post.slug}`}
         title={post.metadata.title}
         description={post.metadata.summary}
         datePublished={post.metadata.publishedAt}
@@ -93,7 +93,7 @@ export default async function Project({
       <Column maxWidth="xs" gap="16">
         <Button
           data-border="rounded"
-          href="/work"
+          href="/projects"
           variant="tertiary"
           weight="default"
           size="s"

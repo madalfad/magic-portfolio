@@ -19,6 +19,6 @@ export {
   home,
   about,
   research,
-  work,
+  projects,
   gallery,
 } from "./content";
