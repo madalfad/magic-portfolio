@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Dialog, Column } from "@once-ui-system/core";
+import { Badge, Dialog, Column } from "@once-ui-system/core";
 import { ReclaimScheduler } from "@/components/ReclaimScheduler";
 import styles from "./about.module.scss";
 
@@ -14,20 +14,19 @@ export function ScheduleCallModal({ embedId }: ScheduleCallModalProps) {
 
   return (
     <>
-      <Button
+      <Badge
         onClick={() => setIsOpen(true)}
-        variant="secondary"
-        size="s"
-        data-border="rounded"
-        prefixIcon="calendar"
-        suffixIcon="chevronRight"
+        icon="calendar"
+        arrow
+        effect
         className={styles.blockAlign}
         style={{
           marginBottom: "var(--static-space-m)",
+          cursor: "pointer",
         }}
       >
         Schedule a meeting
-      </Button>
+      </Badge>
       <Dialog
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
