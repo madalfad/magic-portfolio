@@ -22,6 +22,7 @@ import { Projects } from "@/components/work/Projects";
 import { baseURL, routes } from "@/resources";
 import { home, about, person, newsletter } from "@/resources";
 import { Mailchimp } from "@/components";
+import { ReclaimScheduler } from "@/components/ReclaimScheduler";
 import { getResearchFromSheet } from "@/utils/research";
 import { Meta, Schema } from "@once-ui-system/core";
 
@@ -36,7 +37,7 @@ export async function generateMetadata() {
 
 export default async function Home() {
   const recentResearch = routes["/research"]
-    ? (await getResearchFromSheet()).slice(0, 4)
+    ? (await getResearchFromSheet()).filter((p) => p.featured)
     : [];
 
   return (
@@ -226,7 +227,7 @@ export default async function Home() {
               </Button>
             </Flex>
             <Text onBackground="neutral-weak" variant="body-default-m">
-              Publications, abstracts, and academic writing.
+              Featured publications and presentations
             </Text>
             <Column fillWidth gap="12">
               {recentResearch.map((project, index) => (
@@ -246,7 +247,12 @@ export default async function Home() {
                       >
                         {project.description}
                       </Text>
-                      <Flex gap="8" vertical="center" paddingTop="4">
+                      <Flex gap="8" vertical="center" paddingTop="4" wrap>
+                        {project.tags?.map((tag) => (
+                          <Tag key={tag} size="s" variant="accent">
+                            {tag}
+                          </Tag>
+                        ))}
                         {project.type && (
                           <Tag size="s" variant="neutral">
                             {project.type}

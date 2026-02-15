@@ -20,6 +20,7 @@ import { getResearchFromSheet } from "@/utils/research";
 import React from "react";
 import { Meta, Schema } from "@once-ui-system/core";
 import { CopyToClipboard } from "@/components/about/CopyToClipboard";
+import { ScheduleCallModal } from "@/components/about/ScheduleCallModal";
 
 export async function generateMetadata() {
   return Meta.generate({
@@ -111,7 +112,11 @@ export default async function About() {
             {person.languages.length > 0 && (
               <Flex wrap gap="8">
                 {person.languages.map((language, index) => (
-                  <Tag key={`${language}-${index}`} size="l">
+                  <Tag
+                    key={`${language}-${index}`}
+                    size="l"
+                    prefixIcon="translate"
+                  >
                     {language}
                   </Tag>
                 ))}
@@ -127,25 +132,15 @@ export default async function About() {
             vertical="center"
             marginBottom="32"
           >
-            {about.calendar.display && (
-              <Button
-                href={about.calendar.link}
-                variant="secondary"
-                size="s"
-                data-border="rounded"
-                prefixIcon="calendar"
-                suffixIcon="chevronRight"
-                className={styles.blockAlign}
-                style={{
-                  marginBottom: "var(--static-space-m)",
-                }}
-              >
-                Schedule a call
-              </Button>
+            {about.calendar.display && about.calendar.embedId && (
+              <ScheduleCallModal embedId={about.calendar.embedId} />
             )}
             <Heading className={styles.textAlign} variant="display-strong-xl">
               {person.name}
             </Heading>
+            <Text className={styles.textAlign} variant="display-default-m">
+              {person.suffixesList.join(" · ")}
+            </Text>
             <Text
               className={styles.textAlign}
               variant="display-default-xs"
@@ -456,7 +451,12 @@ export default async function About() {
                         >
                           {project.description}
                         </Text>
-                        <Flex gap="8" vertical="center">
+                        <Flex gap="8" vertical="center" wrap>
+                          {project.tags?.map((tag) => (
+                            <Tag key={tag} size="s" variant="accent">
+                              {tag}
+                            </Tag>
+                          ))}
                           {project.type && (
                             <Tag size="s" variant="neutral">
                               {project.type}

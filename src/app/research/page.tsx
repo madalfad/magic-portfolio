@@ -26,12 +26,7 @@ export async function generateMetadata() {
   });
 }
 
-function parseDate(dateStr: string): number {
-  const parsed = Date.parse(dateStr);
-  return isNaN(parsed) ? 0 : parsed;
-}
-
-function statusToState(status: string): "active" | "success" | "inactive" {
+function statusToState(status: string): "active" | "success" | "default" {
   const s = status.toLowerCase().trim();
   if (
     s.includes("in progress") ||
@@ -51,19 +46,15 @@ function statusToState(status: string): "active" | "success" | "inactive" {
   ) {
     return "success";
   }
-  return "inactive";
+  return "default";
 }
 
 export default async function Research() {
-  const allProjects = await getResearchFromSheet(0); // bypass cache to pick up new columns
-
-  // Sort all projects by date descending (most recent first)
-  const sorted = [...allProjects].sort(
-    (a, b) => parseDate(b.date) - parseDate(a.date),
-  );
+  // Always fetches fresh from CSV, pre-sorted by date descending
+  const allProjects = await getResearchFromSheet();
 
   // Featured projects for the carousel (driven by CSV "Featured" column)
-  const featured = sorted.filter((p) => p.featured);
+  const featured = allProjects.filter((p) => p.featured);
 
   return (
     <Column maxWidth="s">
@@ -90,19 +81,19 @@ export default async function Research() {
             <Heading as="h2" variant="display-strong-s">
               Featured Works
             </Heading>
-            <ResearchCarousel projects={featured} />
+            <ResearchCarousel projects={featured} key="research-carousel" />
           </Column>
         )}
 
         {/* All research items as a timeline */}
-        {sorted.length > 0 && (
+        {allProjects.length > 0 && (
           <Column fillWidth>
             <Heading as="h2" variant="display-strong-s" marginBottom="m">
               All Research
             </Heading>
             <Column fillWidth marginBottom="40">
               <Timeline
-                items={sorted.map((project, index) => ({
+                items={allProjects.map((project, index) => ({
                   marker: project.image ? (
                     <Avatar
                       src={project.image}
@@ -131,6 +122,14 @@ export default async function Research() {
                         </Text>
                       )}
                       <Flex gap="8" wrap vertical="center">
+                        {project.tags?.map((tag) => (
+                          <Tag
+                            key={tag}
+                            size="s"
+                            variant="accent"
+                            label={tag}
+                          />
+                        ))}
                         {project.type && (
                           <Tag
                             size="s"

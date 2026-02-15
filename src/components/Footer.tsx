@@ -1,5 +1,8 @@
+"use client";
+
 import { Row, IconButton, SmartLink, Text } from "@once-ui-system/core";
 import { person, social } from "@/resources";
+import { CopyToClipboard } from "@/components/about/CopyToClipboard";
 import styles from "./Footer.module.scss";
 
 export const Footer = () => {
@@ -34,7 +37,19 @@ export const Footer = () => {
         <Row gap="16">
           {social.map(
             (item) =>
-              item.link && (
+              item.link &&
+              (item.link.startsWith("mailto:") ? (
+                <CopyToClipboard
+                  key={item.name}
+                  textToCopy={item.link.replace("mailto:", "")}
+                  label={item.name}
+                  icon={item.icon}
+                  toastMessage="Email address copied to clipboard!"
+                  variant="ghost"
+                  size="s"
+                  iconOnly
+                />
+              ) : (
                 <IconButton
                   key={item.name}
                   href={item.link}
@@ -43,7 +58,7 @@ export const Footer = () => {
                   size="s"
                   variant="ghost"
                 />
-              ),
+              )),
           )}
         </Row>
       </Row>

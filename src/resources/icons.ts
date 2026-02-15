@@ -11,6 +11,7 @@ import {
   HiOutlineEyeSlash,
   HiOutlineDocument,
   HiOutlineGlobeAsiaAustralia,
+  HiOutlineLanguage,
   HiOutlineRocketLaunch,
 } from "react-icons/hi2";
 
@@ -22,20 +23,29 @@ import {
   PiImageDuotone,
 } from "react-icons/pi";
 
-import {
-  SiJavascript,
-  SiNextdotjs,
-  SiFigma,
-  SiSupabase,
-} from "react-icons/si";
+import { SiJavascript, SiNextdotjs, SiFigma, SiSupabase } from "react-icons/si";
 
-import { FaDiscord, FaGithub, FaLinkedin, FaX, FaThreads, FaInstagram, FaXTwitter, FaFacebook, FaPinterest, FaWhatsapp, FaReddit, FaTelegram, } from "react-icons/fa6";
+import {
+  FaDiscord,
+  FaGithub,
+  FaLinkedin,
+  FaX,
+  FaThreads,
+  FaInstagram,
+  FaXTwitter,
+  FaFacebook,
+  FaPinterest,
+  FaWhatsapp,
+  FaReddit,
+  FaTelegram,
+} from "react-icons/fa6";
 
 export const iconLibrary: Record<string, IconType> = {
   arrowUpRight: HiArrowUpRight,
   arrowRight: HiArrowRight,
   email: HiEnvelope,
   globe: HiOutlineGlobeAsiaAustralia,
+  translate: HiOutlineLanguage,
   person: PiUserCircleDuotone,
   grid: PiGridFourDuotone,
   book: PiBookBookmarkDuotone,

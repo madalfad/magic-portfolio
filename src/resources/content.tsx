@@ -3,8 +3,14 @@ import { Logo } from "@/once-ui/components";
 const person = {
   firstName: "Mahmoud",
   lastName: "Al-Fadhl",
+  suffixesList: ["MS", "MA"], // optional: e.g., ["PhD", "MD"], leave empty if not needed
   get name() {
     return `${this.firstName} ${this.lastName}`;
+  },
+  get suffixes() {
+    return this.suffixesList.length > 0
+      ? `${this.suffixesList.join(", ")}`
+      : "";
   },
   role: "Medical Student",
   avatar: "/images/hs1sq.jpg",
@@ -56,7 +62,7 @@ const home = {
   label: "Home",
   title: `${person.name}'s Portfolio`,
   description: `Portfolio website showcasing my work as a ${person.role}`,
-  headline: <>Mahmoud Al-Fadhl</>,
+  headline: person.name,
   featured: {
     display: true,
     title: (
@@ -79,7 +85,7 @@ const about = {
   path: "/cv",
   label: "CV",
   title: `CV – ${person.name}`,
-  description: `Meet ${person.name}, ${person.role} from ${person.location}`,
+  description: `Curriculum Vitae of ${person.name}, ${person.role} from ${person.displayLocation}`,
   tableOfContent: {
     display: true,
     subItems: false,
@@ -90,6 +96,7 @@ const about = {
   calendar: {
     display: true,
     link: "https://app.reclaim.ai/m/madalfad/flexible-quick-meeting",
+    embedId: "452aa4c3-771b-42d4-8234-df6596d51b84",
   },
   intro: {
     display: true,

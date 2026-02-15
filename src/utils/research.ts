@@ -12,6 +12,7 @@ export interface ResearchProject {
   status: string;
   slug: string;
   featured: boolean;
+  tags: string[];
 }
 
 /**
@@ -93,6 +94,11 @@ function splitCSVIntoRows(text: string): string[] {
 /**
  * Parse full CSV text into an array of ResearchProject objects.
  */
+function parseDate(dateStr: string): number {
+  const parsed = Date.parse(dateStr);
+  return isNaN(parsed) ? 0 : parsed;
+}
+
 function parseCSV(csvText: string): ResearchProject[] {
   const rows = splitCSVIntoRows(csvText);
   if (rows.length < 2) return [];
@@ -100,7 +106,7 @@ function parseCSV(csvText: string): ResearchProject[] {
   // Skip header row (index 0)
   const dataRows = rows.slice(1);
 
-  return dataRows
+  const projects = dataRows
     .map((row) => {
       const fields = parseCSVRow(row);
 
@@ -120,7 +126,7 @@ function parseCSV(csvText: string): ResearchProject[] {
 
       if (!title) return null;
 
-      return {
+      const project: ResearchProject = {
         date,
         type,
         title,
@@ -134,26 +140,50 @@ function parseCSV(csvText: string): ResearchProject[] {
           featuredRaw.toLowerCase().trim() === "true" ||
           featuredRaw.trim() === "1" ||
           featuredRaw.toLowerCase().trim() === "yes",
-      } satisfies ResearchProject;
+        tags: [],
+      };
+
+      return project;
     })
     .filter((item): item is ResearchProject => item !== null);
+
+  // Find the most recent entry by date and tag it as "Latest" + force featured
+  if (projects.length > 0) {
+    let latestIndex = 0;
+    let latestTime = parseDate(projects[0].date);
+
+    for (let i = 1; i < projects.length; i++) {
+      const t = parseDate(projects[i].date);
+      if (t > latestTime) {
+        latestTime = t;
+        latestIndex = i;
+      }
+    }
+
+    projects[latestIndex].tags.push("Latest");
+    projects[latestIndex].featured = true;
+  }
+
+  // Sort by date descending (most recent first)
+  projects.sort((a, b) => parseDate(b.date) - parseDate(a.date));
+
+  return projects;
 }
 
 /**
  * Fetch research projects from the published Google Sheet.
  *
- * Uses Next.js extended fetch with `next.revalidate` so the data is cached at
- * build time and re-validated periodically (default: every 1 hour).
+ * Always fetches fresh data (cache: "no-store") so every page load picks up
+ * the latest CSV contents. Results are sorted by date descending (most recent
+ * first).
  *
  * Falls back to an empty array on any network / parse error so the page still
  * renders.
  */
-export async function getResearchFromSheet(
-  revalidateSeconds = 3600,
-): Promise<ResearchProject[]> {
+export async function getResearchFromSheet(): Promise<ResearchProject[]> {
   try {
     const response = await fetch(SHEET_CSV_URL, {
-      next: { revalidate: revalidateSeconds },
+      cache: "no-store",
     });
 
     if (!response.ok) {

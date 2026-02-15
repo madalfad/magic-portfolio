@@ -12,6 +12,12 @@ interface CopyToClipboardProps {
   icon: string;
   /** Optional toast message shown after copying */
   toastMessage?: string;
+  /** Button variant — "ghost" is supported for IconButton; falls back to "tertiary" for Button */
+  variant?: "primary" | "secondary" | "tertiary" | "ghost" | "danger";
+  /** Button size — applies to both desktop and mobile variants */
+  size?: "s" | "m" | "l";
+  /** When true, render only an IconButton at all breakpoints (no label) */
+  iconOnly?: boolean;
 }
 
 export function CopyToClipboard({
@@ -19,6 +25,9 @@ export function CopyToClipboard({
   label,
   icon,
   toastMessage = "Copied to clipboard!",
+  variant = "secondary",
+  size,
+  iconOnly = false,
 }: CopyToClipboardProps) {
   const { addToast } = useToast();
 
@@ -46,6 +55,18 @@ export function CopyToClipboard({
     }
   }, [textToCopy, toastMessage, addToast]);
 
+  if (iconOnly) {
+    return (
+      <IconButton
+        onClick={handleCopy}
+        icon={icon}
+        size={size ?? "s"}
+        variant={variant}
+        tooltip={label}
+      />
+    );
+  }
+
   return (
     <>
       {/* Desktop: full button with label */}
@@ -54,8 +75,8 @@ export function CopyToClipboard({
           onClick={handleCopy}
           prefixIcon={icon}
           label={label}
-          size="s"
-          variant="secondary"
+          size={size ?? "s"}
+          variant={variant === "ghost" ? "tertiary" : variant}
         />
       </Flex>
 
@@ -64,8 +85,8 @@ export function CopyToClipboard({
         <IconButton
           onClick={handleCopy}
           icon={icon}
-          size="l"
-          variant="secondary"
+          size={size ?? "l"}
+          variant={variant}
           tooltip={label}
         />
       </Flex>

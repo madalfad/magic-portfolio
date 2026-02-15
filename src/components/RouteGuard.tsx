@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { routes, protectedRoutes } from "@/resources";
 import {
@@ -25,6 +25,7 @@ const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [error, setError] = useState<string | undefined>(undefined);
   const [loading, setLoading] = useState(true);
+  const [verifiedPathname, setVerifiedPathname] = useState<string | null>(null);
 
   useEffect(() => {
     const performChecks = async () => {
@@ -32,6 +33,8 @@ const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
       setIsRouteEnabled(false);
       setIsPasswordRequired(false);
       setIsAuthenticated(false);
+      setPassword("");
+      setError(undefined);
 
       const checkRouteEnabled = () => {
         if (!pathname) return false;
@@ -56,12 +59,15 @@ const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
       if (protectedRoutes[pathname as keyof typeof protectedRoutes]) {
         setIsPasswordRequired(true);
 
-        const response = await fetch("/api/check-auth");
+        const response = await fetch(
+          `/api/check-auth?route=${encodeURIComponent(pathname)}`,
+        );
         if (response.ok) {
           setIsAuthenticated(true);
         }
       }
 
+      setVerifiedPathname(pathname);
       setLoading(false);
     };
 
@@ -72,7 +78,7 @@ const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
     const response = await fetch("/api/authenticate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ password }),
+      body: JSON.stringify({ password, route: pathname }),
     });
 
     if (response.ok) {
@@ -83,7 +89,10 @@ const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
     }
   };
 
-  if (loading) {
+  // Show spinner if still loading OR if the pathname has changed since
+  // the last completed check (prevents flash of protected content
+  // during client-side navigation).
+  if (loading || verifiedPathname !== pathname) {
     return (
       <Flex fillWidth paddingY="128" horizontal="center">
         <Spinner />

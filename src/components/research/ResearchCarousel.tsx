@@ -11,18 +11,7 @@ import {
   Tag,
   Text,
 } from "@/once-ui/components";
-
-interface ResearchProject {
-  date: string;
-  type: string;
-  title: string;
-  description: string;
-  link: string;
-  image: string;
-  abstract: string;
-  status: string;
-  slug: string;
-}
+import type { ResearchProject } from "@/utils/research";
 
 interface ResearchCarouselProps {
   projects: ResearchProject[];
@@ -95,6 +84,9 @@ export function ResearchCarousel({ projects }: ResearchCarouselProps) {
             </Text>
           )}
           <Flex gap="8" wrap vertical="center">
+            {project.tags?.map((tag) => (
+              <Tag key={tag} size="s" variant="accent" label={tag} />
+            ))}
             {project.type && (
               <Tag size="s" variant="neutral" label={project.type} />
             )}
