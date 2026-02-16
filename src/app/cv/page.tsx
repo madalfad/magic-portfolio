@@ -123,6 +123,9 @@ export default async function About() {
                 ))}
               </Flex>
             )}
+            {about.calendar.display && about.calendar.embedId && (
+              <ScheduleCallModal embedId={about.calendar.embedId} />
+            )}
           </Column>
         )}
         <Column className={styles.blockAlign} flex={9} maxWidth={40}>
@@ -133,9 +136,6 @@ export default async function About() {
             vertical="center"
             marginBottom="32"
           >
-            {about.calendar.display && about.calendar.embedId && (
-              <ScheduleCallModal embedId={about.calendar.embedId} />
-            )}
             <Heading className={styles.textAlign} variant="display-strong-xl">
               {person.name}
             </Heading>
