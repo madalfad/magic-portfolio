@@ -91,7 +91,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({
             </Flex>
           )}
           {(avatars?.length > 0 || description?.trim() || content?.trim()) && (
-            <Column flex={9} gap="16">
+            <Column flex={9} gap="16" paddingLeft="s">
               {avatars?.length > 0 && (
                 <AvatarGroup avatars={avatars} size="m" reverse />
               )}
