@@ -1,7 +1,16 @@
 "use client";
 
 import { useCallback } from "react";
-import { Button, Flex, IconButton, useToast } from "@once-ui-system/core";
+import {
+  Button,
+  Flex,
+  Icon,
+  IconButton,
+  Row,
+  Text,
+  HoverCard,
+  useToast,
+} from "@once-ui-system/core";
 
 interface CopyToClipboardProps {
   /** The text to copy (e.g. the raw email address) */
@@ -55,15 +64,42 @@ export function CopyToClipboard({
     }
   }, [textToCopy, toastMessage, addToast]);
 
+  const hoverContent = (
+    <Row
+      gap="8"
+      vertical="center"
+      padding="8"
+      paddingX="12"
+      background="surface"
+      border="neutral-alpha-medium"
+      radius="m"
+    >
+      <Icon name="clipboard" size="xs" onBackground="neutral-weak" />
+      <Text variant="label-default-xs" onBackground="neutral-weak">
+        Copy to clipboard
+      </Text>
+    </Row>
+  );
+
   if (iconOnly) {
     return (
-      <IconButton
-        onClick={handleCopy}
-        icon={icon}
-        size={size ?? "s"}
-        variant={variant}
-        tooltip={label}
-      />
+      <HoverCard
+        fade={0.8}
+        scale={0.95}
+        placement="top"
+        offsetDistance="4"
+        trigger={
+          <IconButton
+            onClick={handleCopy}
+            icon={icon}
+            size={size ?? "s"}
+            variant={variant}
+            tooltip={label}
+          />
+        }
+      >
+        {hoverContent}
+      </HoverCard>
     );
   }
 
@@ -71,24 +107,44 @@ export function CopyToClipboard({
     <>
       {/* Desktop: full button with label */}
       <Flex s={{ hide: true }}>
-        <Button
-          onClick={handleCopy}
-          prefixIcon={icon}
-          label={label}
-          size={size ?? "s"}
-          variant={variant === "ghost" ? "tertiary" : variant}
-        />
+        <HoverCard
+          fade={0.8}
+          scale={0.95}
+          placement="top"
+          offsetDistance="4"
+          trigger={
+            <Button
+              onClick={handleCopy}
+              prefixIcon={icon}
+              label={label}
+              size={size ?? "s"}
+              variant={variant === "ghost" ? "tertiary" : variant}
+            />
+          }
+        >
+          {hoverContent}
+        </HoverCard>
       </Flex>
 
       {/* Mobile: icon-only button */}
       <Flex hide s={{ hide: false }}>
-        <IconButton
-          onClick={handleCopy}
-          icon={icon}
-          size={size ?? "l"}
-          variant={variant}
-          tooltip={label}
-        />
+        <HoverCard
+          fade={0.8}
+          scale={0.95}
+          placement="top"
+          offsetDistance="4"
+          trigger={
+            <IconButton
+              onClick={handleCopy}
+              icon={icon}
+              size={size ?? "l"}
+              variant={variant}
+              tooltip={label}
+            />
+          }
+        >
+          {hoverContent}
+        </HoverCard>
       </Flex>
     </>
   );
